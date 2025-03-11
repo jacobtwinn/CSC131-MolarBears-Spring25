@@ -1,0 +1,93 @@
+# This is what an example .gitignore file should look like. This currently does not have the correct technology that we will be using, but it is beneficial to show how this file will be structured.
+
+
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# IntelliJ IDEA project files
+.idea/
+*.iml
+
+# Java build directories
+target/
+out/
+
+# Maven build directory
+.mvn/
+*.mvn
+
+# Gradle build directory and cache
+.gradle/
+build/
+
+# Node modules for frontend (if applicable)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment files (sensitive information)
+.env
+*.env.local
+.env.production
+
+# Database files (PostgreSQL backups or dumps)
+*.sql
+*.db
+*.sqlite
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Generated files (temporary)
+*.tmp
+*.cache
+*.pid
+
+# Test coverage output
+coverage/
+cypress/videos/
+cypress/screenshots/
+
+# Deployment artifacts
+*.jar
+*.war
+*.ear
+
+# Package files
+package-lock.json
+yarn.lock
+
+# VS Code specific files
+.vscode/
+
+# Operating system files
+*.swp
+*.swo
+
+# Logs and runtime files
+logs/
+*.log
+nohup.out
+
+# Build files (for React, Vue, or Angular frontend)
+build/
+dist/
+public/
+
+# Java/Python virtual environment files (if applicable)
+venv/
+__pycache__/
+
+# Docker files (if you use Docker)
+docker-compose.override.yml
+docker-compose.yml
+.dockerignore
+
+# Ignore test data and user uploads
+uploads/
+tmp/
