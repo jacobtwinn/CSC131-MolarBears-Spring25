@@ -1,0 +1,18 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th {
+    background-color: #5BA3BB;
+    text-align: center;
+}
+td {
+    text-align: left;
+    color:black;
+    border-bottom: 1px solid #000000;
+    padding: 10px;
+}
+h3 {
+    color:#000000;
+}
+tr:hover {background-color: coral;}
