@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom'
 import './App.css'
 import FinancialPage from './pages/financialPage'
+import AccountDetails from './pages/UserInfo'
 
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
 
   return (
     <>
+    <title>DCMS Homepage</title>
     <Router>
       <Routes>
         <Route
@@ -17,12 +19,14 @@ function App() {
             <>
               <h1>DCMS homepage</h1>
               <div>
-                <Link to="/financial">Financial Homepage Here</Link>
+                <Link to="/financial">Financial Homepage</Link>
+                <Link to="/userinfo">Account Information</Link>
               </div>
             </>
           }
         />
         <Route path="/financial" element={<FinancialPage />} />
+        <Route path="/userinfo" element={<AccountDetails />} />
       </Routes>
     </Router>
     </>
