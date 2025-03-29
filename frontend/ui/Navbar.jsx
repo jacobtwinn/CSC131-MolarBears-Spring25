@@ -1,4 +1,7 @@
+<<<<<<< HEAD:src/components/ui/Navbar.jsx
 // components/Navbar.tsx
+=======
+>>>>>>> 9948defb375d67972a3dd2291bc609d21654ea36:frontend/ui/Navbar.jsx
 import { Link as RouterLink } from "react-router-dom";
 import { Box, Flex, Text, Button, HStack, Link, Image, Spacer } from "@chakra-ui/react";
 
@@ -40,4 +43,8 @@ const Navbar = () => {
   );
 };
 
+<<<<<<< HEAD:src/components/ui/Navbar.jsx
 export default Navbar;
+=======
+export default Navbar;
+>>>>>>> 9948defb375d67972a3dd2291bc609d21654ea36:frontend/ui/Navbar.jsx
