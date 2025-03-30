@@ -1,13 +1,15 @@
-import express from "express";
-import dotenv from "dotenv";
-import { connectDB } from "./config/db.js";
-const app = express();
-        app.get("/products",(req, res) => { });
+const connect = require("./db")
+const express = require("express")
+const cors = require("cors")
 
-dotenv.config();
-console.log(process.env.MONGO_URI);
+const app = express()
+const PORT = 3000
 
-app.listen(5000, () => {
-    console.log("Server started at http://localhost:5000");
-    connectDB();
-});
+app.get("/products",(req, res) => { })
+app.use(cors())
+app.use(express.json())
+
+app.listen(PORT, () => {
+    connect.connectToServer()
+    console.log("Server started at http://localhost:3000")
+})
