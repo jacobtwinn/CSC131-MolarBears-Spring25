@@ -13,7 +13,7 @@ let database
 
 module.exports = {
   connectToServer: () => {
-    database = client.db("VisitHistory")
+    database = client.db("mongodbVSCodePlaygroundDB")
   },
   getDb: () => {
     return database
