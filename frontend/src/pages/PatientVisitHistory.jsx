@@ -5,7 +5,7 @@ import {
   } from "@chakra-ui/react";
 
 
-  const PatientVisitHistory = () => {
+  export function PatientVisitHistory() {
     return (
       <Box 
         bg="white" 
@@ -37,5 +37,3 @@ import {
       </Box>
     );
   };
-
-  export default PatientVisitHistory;

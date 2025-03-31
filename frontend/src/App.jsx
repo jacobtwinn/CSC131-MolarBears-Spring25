@@ -1,36 +1,40 @@
-import { Routes, Route } from "react-router-dom"
-import { useState, useEffect } from "react"
-import axios from "axios"
-import Navbar from "./ui/Navbar";
-import PatientVisitHistory from "./pages/PatientVisitHistory" // Import the new Home component
 import "./App.css"
+import { HashRouter as Router, Routes, Route } from "react-router-dom"
+import { useState, useEffect } from "react"
+// import { getVisits, getVisit, createVisit, updateVisit, deleteVisit } from "./api"
+// import { PatientVisitHistory } from "./pages/PatientVisitHistory"
+import { Home } from "./pages/Home"
+import { About } from "./pages/About"
+import { Contact } from "./pages/Contact"
+import { Navbar } from "./ui/Navbar"
+import { Layout } from "./ui/Layout"
 
 function App() {
 
-  const [data, setData] = useState()
+  /*const [visits, setVisits] = useState()
 
   useEffect(() => {
-    async function grabData() {
-      const response = await axios.get("http://localhost:3000/VisitHistory")
-      console.log(response)
-      if (response.status == 200) {
-        setData(response.data)
+    async function loadAllVisits() {
+      let data = await getVisits()
+      if (data) {
+        setVisits(data)
       }
     }
 
-    grabData()
-  }, [])
+    loadAllVisits()
+  }, [])*/
 
   return (
-    <>
-      {JSON.stringify(data)}
-      {/* The Navbar component will be displayed on all pages */}
-      <Navbar />
+    <Router>
       <Routes>
-        <Route path="/" element={<PatientVisitHistory />} />
+        <Route path="/" element={<Home/>}/>
+        <Route element={<Layout/>}>
+          <Route path="/about" element={<About/>}/>
+          <Route path="/contact" element={<Contact/>}/>
+        </Route>
       </Routes>
-    </>
+    </Router>
   )
 }
 
-export default App;
+export default App

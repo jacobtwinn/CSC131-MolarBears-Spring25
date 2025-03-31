@@ -8,7 +8,7 @@ import {
   Image 
 } from "@chakra-ui/react";
 
-const Home = () => {
+export function Home() {
   return (
     <Box>
       {/* Hero Section */}
@@ -186,5 +186,3 @@ const Home = () => {
     </Box>
   );
 };
-
-export default Home;
