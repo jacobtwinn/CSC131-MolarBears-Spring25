@@ -1,17 +1,17 @@
-import express from "express";
-import dotenv from "dotenv";
-import path from "path"; // Add this import
-dotenv.config();
-import { connectDB } from "./config/db.js"; // make sure it is db.js and not just db
-connectDB();
-const __dirname = path.resolve(); // Define __dirname for ES module compatibility
-const app = express();
-app.use(express.static(path.join(__dirname, "public"))); // Serve static files
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
-app.get("/products",(req, res) => { });
+const connect = require("./db")
+const express = require("express")
+const cors = require("cors")
+const VisitHistory = require("./VisitHistoryRoutes")
 
-app.listen(5000, () => {
-console.log("Server started at http://localhost:5000");
-});
+const app = express()
+const PORT = 3000
+
+app.get("/products",(req, res) => { })
+app.use(cors())
+app.use(express.json())
+app.use(VisitHistory)
+
+app.listen(PORT, () => {
+    connect.connectToServer()
+    console.log("Server started at http://localhost:3000")
+})

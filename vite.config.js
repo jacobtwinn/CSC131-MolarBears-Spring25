@@ -4,5 +4,6 @@ import tsconfigPaths from "vite-tsconfig-paths"
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  root: './frontend', // Set the root directory to the frontend folder
   plugins: [react(), tsconfigPaths()],
 })
