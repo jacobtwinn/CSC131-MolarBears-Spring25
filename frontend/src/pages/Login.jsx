@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link as RouterLink } from 'react-router-dom'; // Import RouterLink
+import { Button } from '@chakra-ui/react'; // Ensure Chakra UI is installed
 import './Login.css'; // Ensure this import is correct
 
 const Login = () => {
@@ -57,7 +59,10 @@ const Login = () => {
             <button type="submit" className="login-button">Login</button>
           </div>
           <div className="form-group">
-            <button type="button" className="register-button">Register</button>
+            {/* Register Button */}
+            <Button as={RouterLink} to="/register" colorScheme="blue" variant="solid">
+              Register
+            </Button>
           </div>
         </form>
       </div>
