@@ -1,9 +1,10 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
+
+dotenv.config({ path: "../.env" });
 
 const app = express();
 
