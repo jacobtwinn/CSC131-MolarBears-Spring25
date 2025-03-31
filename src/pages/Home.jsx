@@ -5,8 +5,13 @@ import {
   VStack, 
   HStack, 
   Button, 
-  Image 
+  Image,
+  Grid,
+  GridItem,
+  Icon,
+  Center
 } from "@chakra-ui/react";
+import { FaTooth } from "react-icons/fa"; // You'll need to install react-icons
 
 const Home = () => {
   return (
@@ -123,7 +128,7 @@ const Home = () => {
         </Box>
       </Flex>
 
-      {/* New Family Care Section */}
+      {/* Family Care Section */}
       <Flex 
         direction={["column", "row"]} 
         align="center" 
@@ -183,6 +188,99 @@ const Home = () => {
           </HStack>
         </VStack>
       </Flex>
+
+      {/* Services Section */}
+      <Box 
+        bg="blue.50" 
+        py={16}
+        px={6}
+      >
+        <Box maxW="1200px" mx="auto">
+          <Flex 
+            direction={["column", "row"]} 
+            align={["start", "center"]} 
+            justify="space-between" 
+            mb={12}
+          >
+            {/* Left side heading */}
+            <Box maxW={["100%", "40%"]}>
+              <Text 
+                fontSize={["3xl", "4xl", "5xl"]} 
+                fontWeight="bold" 
+                lineHeight="tight"
+              >
+                Everything 
+                <br />
+                you need 
+                <br />
+                in one 
+                <br />
+                place.
+              </Text>
+            </Box>
+          </Flex>
+
+          {/* Services Grid */}
+          <Grid 
+            templateColumns={["1fr", "1fr", "repeat(3, 1fr)"]} 
+            gap={8}
+          >
+            {/* Preventive Care */}
+            <GridItem>
+              <VStack align="start" spacing={4}>
+                <Box w={12} h={12}>
+                  <Image 
+                    src="/public/preventive-icon.png" 
+                    alt="Preventive Care Icon" 
+                    w="full" 
+                    h="full" 
+                  />
+                </Box>
+                <Text fontWeight="bold" fontSize="xl">Preventive Care</Text>
+                <Text color="gray.600">
+                  Regular check-ups and fluoride treatments to prevent tooth decay and gum disease.
+                </Text>
+              </VStack>
+            </GridItem>
+
+            {/* Restorative Care */}
+            <GridItem>
+              <VStack align="start" spacing={4}>
+                <Box w={12} h={12}>
+                  <Image 
+                    src="/public/restorative-icon.png" 
+                    alt="Restorative Care Icon" 
+                    w="full" 
+                    h="full" 
+                  />
+                </Box>
+                <Text fontWeight="bold" fontSize="xl">Restorative Care</Text>
+                <Text color="gray.600">
+                  Fillings, crowns, bridges, and dentures to restore damaged or missing teeth. No need to <Text as="span" fontWeight="bold">Bear</Text> the pain, gentle care, every time!
+                </Text>
+              </VStack>
+            </GridItem>
+
+            {/* Orthodontic Care */}
+            <GridItem>
+              <VStack align="start" spacing={4}>
+                <Box w={12} h={12}>
+                  <Image 
+                    src="/public/orthodontic-icon.png" 
+                    alt="Orthodontic Care Icon" 
+                    w="full" 
+                    h="full" 
+                  />
+                </Box>
+                <Text fontWeight="bold" fontSize="xl">Orthodontic Care</Text>
+                <Text color="gray.600">
+                  Braces and clear aligners to straighten teeth and correct bite issues.
+                </Text>
+              </VStack>
+            </GridItem>
+          </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 };
