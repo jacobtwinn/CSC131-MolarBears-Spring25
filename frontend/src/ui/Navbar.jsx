@@ -1,37 +1,40 @@
-import { Link} from "react-router-dom"
-import { pageData } from "./pageData"
-import { Box, Flex, Text, Button, HStack, Image} from "@chakra-ui/react"
+import { Link as RouterLink } from "react-router-dom";
+import { Box, Flex, Text, Button, HStack, Link, Image, Spacer } from "@chakra-ui/react";
 
 export function Navbar() {
   return (
-    <div>
-      <Box bg="white" px={6} py={4} boxShadow="sm">
-        <Flex justify="space-between" align="center" maxW="1200px" mx="auto">
-          {/* Logo */}
-          <HStack spacing={2}>
-            <Image src="/logo.png" alt="Molar Bears Logo" boxSize="32px" />
-            <Text fontWeight="bold" fontSize="xl">
-              Molar <Text as="span" color="blue.400">Bears</Text>
-            </Text>
-          </HStack>
+    <Box bg="white" px={6} py={4} boxShadow="sm">
+      <Flex justify="space-between" align="center" maxW="1200px" mx="auto">
+        {/* Logo */}
+        <HStack spacing={2}>
+          <Image src="/logo.png" alt="Molar Bears Logo" boxSize="32px" />
+          <Text fontWeight="bold" fontSize="xl">
+            Molar <Text as="span" color="blue.400">Bears</Text>
+          </Text>
+        </HStack>
 
-          {/* Navigation Links */}
-          {pageData.map((page) => {
-            return (
-              <Link to={page.path}>
-                <Button>
-                  {page.name}
-                </Button>
-              </Link>
-            )
-          })}
+        <Spacer /> {/* This can help distribute space */}
 
-          {/* Log In Button */}
-          <Button colorScheme="blackAlpha" variant="solid" px={6}>
-            Log In
-          </Button>
+        {/* Nav links */}
+        <Flex align="center" gap={170}> {/* Adjust gap as needed */}
+            <Link as={RouterLink} to="/" fontWeight="bold" color="blue.400" mx={2}>
+                HOME
+            </Link>
+            <Link as={RouterLink} to="/about" fontWeight="bold" color="blackAlpha.800" mx={2}>
+                ABOUT
+            </Link>
+            <Link as={RouterLink} to="/contact" fontWeight="bold" color="blackAlpha.800" mx={2}>
+                CONTACT
+            </Link>
         </Flex>
-      </Box>
-    </div>
+
+        <Spacer />
+
+        {/* Log In Button */}
+        <Button colorScheme="blackAlpha" variant="solid" px={6}>
+          Log In
+        </Button>
+      </Flex>
+    </Box>
   );
 };

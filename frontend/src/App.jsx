@@ -25,15 +25,14 @@ function App() {
   }, [])*/
 
   return (
-    <Router>
+    <>
+      <Navbar/>
       <Routes>
-        <Route path="/" element={<Home/>}/>
-        <Route element={<Layout/>}>
-          <Route path="/about" element={<About/>}/>
-          <Route path="/contact" element={<Contact/>}/>
-        </Route>
+        <Route path="/" element={<Home/>} />
+        <Route path="/About" element={<About/>} />
+        <Route path="/Contact" element={<Contact/>} />
       </Routes>
-    </Router>
+    </>
   )
 }
 
