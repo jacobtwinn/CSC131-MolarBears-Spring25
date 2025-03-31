@@ -93,7 +93,7 @@
   }
   
   .payment-method-details {
-    color: #666;
+    color: black;
   }
   
   .payment-method-actions {
@@ -106,4 +106,5 @@
     font-size: 24px;
     margin-bottom: 20px;
     text-align: center;
+    font-weight: bold;
   }

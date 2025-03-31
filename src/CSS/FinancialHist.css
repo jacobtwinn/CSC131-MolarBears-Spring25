@@ -102,3 +102,13 @@
     border-radius: 4px;
     cursor: pointer;
   }
+  .page-number{
+    margin-left:5px;
+    margin-right:5px;
+  }
+  .financial-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
