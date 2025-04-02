@@ -21,6 +21,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
 >>>>>>> recovery-backup
 .env
 node_modules/
+=======
+>>>>>>> tinowidrin
