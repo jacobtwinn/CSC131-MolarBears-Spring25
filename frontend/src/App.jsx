@@ -7,7 +7,6 @@ import { Home } from "../pages/Home"
 import { About } from "../pages/About"
 import { Contact } from "../pages/Contact"
 import { Navbar } from "../ui/Navbar"
-import { Layout } from "../ui/Layout"
 
 function App() {
 
