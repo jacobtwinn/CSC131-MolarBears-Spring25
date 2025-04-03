@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 export const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -8,3 +9,20 @@ export const connectDB = async () => {
         process.exit(1); // process code 1 code means exit with failure, 0 means success
     }
 };
+const client = new MongoClient(process.env.MONGO_URI, {
+    serverApi: {
+        version: ServerApiVersion.v1,
+        strict: true,
+        deprecationErrors: true,
+    },
+});
+let database;
+
+export const connectToServer = () => {
+    database = client.db("mongodbVSCodePlaygroundDB");
+};
+
+export const getDb = () => {
+    return database;
+};
+

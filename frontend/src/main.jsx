@@ -1,4 +1,4 @@
-import { Provider } from "/src/components/ui/provider"
+import { Provider } from "/src/components/ui/provider.jsx"
 import React from "react"
 import ReactDOM from "react-dom/client"
 import App from "./App"

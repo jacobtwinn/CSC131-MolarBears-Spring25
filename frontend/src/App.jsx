@@ -1,7 +1,9 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/ui/Navbar";
-import Home from "./pages/Home"; // Import the new Home component
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 function App() {
   return (
@@ -10,6 +12,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         {/* Other routes can be added here */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </>
   );
