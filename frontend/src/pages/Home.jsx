@@ -11,7 +11,7 @@ import {
   Icon,
   Center
 } from "@chakra-ui/react";
-import { FaTooth } from "react-icons/fa"; // You'll need to install react-icons
+import React from "react";
 
 const Home = () => {
   return (

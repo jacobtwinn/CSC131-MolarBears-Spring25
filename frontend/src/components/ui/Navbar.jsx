@@ -1,4 +1,5 @@
 // components/Navbar.tsx
+import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { Box, Flex, Text, Button, HStack, Link, Image, Spacer } from "@chakra-ui/react";
 
