@@ -1,3 +1,6 @@
+
+import React from "react";
+
 import { 
   Box, 
   Flex, 
@@ -7,7 +10,6 @@ import {
   Button, 
   Image 
 } from "@chakra-ui/react";
-import React from "react";
 
 const Home = () => {
   return (

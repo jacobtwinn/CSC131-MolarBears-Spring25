@@ -1,7 +1,5 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
-import dotenv from 'dotenv';
-dotenv.config({ path: './.env' }); // Load environment variables from .env file
-/*
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 export const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI);
@@ -11,7 +9,6 @@ export const connectDB = async () => {
         process.exit(1); // process code 1 code means exit with failure, 0 means success
     }
 };
-*/
 const client = new MongoClient(process.env.MONGO_URI, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -28,3 +25,4 @@ export const connectToServer = () => {
 export const getDb = () => {
     return database;
 };
+
