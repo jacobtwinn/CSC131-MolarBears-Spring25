@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
+import detect from "detect-port"; // Import detect-port
 
 dotenv.config({ path: "../.env" });
 
@@ -14,15 +15,19 @@ app.use(express.json());
 
 // Connect to MongoDB
 mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
 app.use("/api/auth", authRoutes);
 
-// Start the server
-const PORT = 5001;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+// Detect an available port
+const DEFAULT_PORT = process.env.PORT || 5001;
+detect(DEFAULT_PORT).then((availablePort) => {
+  app.listen(availablePort, () => {
+    console.log(`Server running on http://localhost:${availablePort}`);
+  });
+}).catch((err) => {
+  console.error("Error detecting port:", err);
 });
