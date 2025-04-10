@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserDashboard from "./pages/userDashboard";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <>
@@ -15,7 +15,13 @@ function App() {
         {/* Other routes can be added here */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/userDashboard" element={<UserDashboard />} />
+        <Route path="/userDashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </>
   );
