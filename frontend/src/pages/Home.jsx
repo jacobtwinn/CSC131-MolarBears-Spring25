@@ -232,7 +232,7 @@ const Home = () => {
               <VStack align="start" spacing={4}>
                 <Box w={12} h={12}>
                   <Image 
-                    src="/public/preventive-icon.png" 
+                    src="/preventive-icon.png" 
                     alt="Preventive Care Icon" 
                     w="full" 
                     h="full" 
@@ -250,7 +250,7 @@ const Home = () => {
               <VStack align="start" spacing={4}>
                 <Box w={12} h={12}>
                   <Image 
-                    src="/public/restorative-icon.png" 
+                    src="/restorative-icon.png" 
                     alt="Restorative Care Icon" 
                     w="full" 
                     h="full" 
@@ -268,7 +268,7 @@ const Home = () => {
               <VStack align="start" spacing={4}>
                 <Box w={12} h={12}>
                   <Image 
-                    src="/public/orthodontic-icon.png" 
+                    src="/orthodontic-icon.png" 
                     alt="Orthodontic Care Icon" 
                     w="full" 
                     h="full" 
