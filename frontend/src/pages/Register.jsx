@@ -14,7 +14,7 @@ const Register = () => {
   });
   const [step, setStep] = useState(1); // Track the current step
   const [error, setError] = useState("");
-  const [success, setSuccess] =useState("");
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,85 +73,91 @@ const Register = () => {
       <div className="register-box">
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
-          {step === 1 && (
-            <>
-              <div className="form-group">
-                <label>Username:</label>
-                <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Password:</label>
-                <input
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-              </div>
-              <button type="button" onClick={handleNext}>
-                Next
-              </button>
-            </>
-          )}
+          <div className={`step-container ${step === 1 ? "active" : ""}`}>
+            {step === 1 && (
+              <>
+                <div className="form-group">
+                  <label>Username:</label>
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Password:</label>
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                  />
+                </div>
+                <button type="button" onClick={handleNext}>
+                  Next
+                </button>
+              </>
+            )}
+          </div>
 
-          {step === 2 && (
-            <>
-              <div className="form-group">
-                <label>First Name:</label>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Last Name:</label>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Email:</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>Gender:</label>
-                <select name="gender" value={formData.gender} onChange={handleChange}>
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Date of Birth:</label>
-                <input
-                  type="date"
-                  name="dob"
-                  value={formData.dob}
-                  onChange={handleChange}
-                />
-              </div>
-              <button type="button" onClick={handleBack}>
-                Back
-              </button>
-              <button type="submit">Submit</button>
-            </>
-          )}
+          <div className={`step-container ${step === 2 ? "active" : ""}`}>
+            {step === 2 && (
+              <>
+                <div className="form-group">
+                  <label>First Name:</label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Last Name:</label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Email:</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Gender:</label>
+                  <select name="gender" value={formData.gender} onChange={handleChange}>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Date of Birth:</label>
+                  <input
+                    type="date"
+                    name="dob"
+                    value={formData.dob}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div class="button-group">
+                <button type="button" onClick={handleBack}>
+                  Back
+                </button>
+                <button type="submit">Submit</button>
+                </div>
+              </>
+            )}
+          </div>
         </form>
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
