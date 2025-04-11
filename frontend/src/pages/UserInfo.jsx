@@ -1,108 +1,104 @@
-import React, { useState } from 'react';
-import '/src/CSS/UserInfo.css';
+import React, { useState } from "react";
+import "/src/CSS/UserInfo.css";
 
 const AccountDetails = () => {
   const [userDetails, setUserDetails] = useState({
     personalInfo: {
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      phone: '(555) 123-4567'
+      name: "John Doe",
+      email: "johndoe@example.com",
+      phone: "(555) 123-4567",
     },
     mailingAddress: {
-      street: '123 Main Street',
-      apartment: 'Apt 4B',
-      city: 'Anytown',
-      state: 'CA',
-      zipCode: '90210',
-      country: 'United States'
+      street: "123 Main Street",
+      apartment: "Apt 4B",
+      city: "Anytown",
+      state: "CA",
+      zipCode: "90210",
+      country: "United States",
     },
     paymentMethods: [
       {
         id: 1,
-        type: 'Credit Card',
-        cardType: 'Visa',
-        lastFour: '4567',
-        expiryDate: '12/2028',
-        isDefault: true
+        type: "Credit Card",
+        cardType: "Visa",
+        lastFour: "4567",
+        expiryDate: "12/2028",
+        isDefault: true,
       },
       {
         id: 2,
-        type: 'Debit Card',
-        cardType: 'Mastercard',
-        lastFour: '1234',
-        expiryDate: '06/2026',
-        isDefault: false
-      }
-    ]
+        type: "Debit Card",
+        cardType: "Mastercard",
+        lastFour: "1234",
+        expiryDate: "06/2026",
+        isDefault: false,
+      },
+    ],
   });
 
   const [isEditing, setIsEditing] = useState({
     personalInfo: false,
     mailingAddress: false,
-    paymentMethod: null
+    paymentMethod: null,
   });
 
-  
-
   const handleEditToggle = (section, paymentMethodId = null) => {
-    if (section === 'paymentMethod') {
+    if (section === "paymentMethod") {
       if (isEditing.paymentMethod === paymentMethodId) {
-        setIsEditing(prev => ({
+        setIsEditing((prev) => ({
           ...prev,
-          paymentMethod: null
+          paymentMethod: null,
         }));
       } else {
-        setIsEditing(prev => ({
+        setIsEditing((prev) => ({
           ...prev,
-          paymentMethod: paymentMethodId
+          paymentMethod: paymentMethodId,
         }));
       }
     } else {
-      setIsEditing(prev => ({
+      setIsEditing((prev) => ({
         ...prev,
-        [section]: !prev[section]
+        [section]: !prev[section],
       }));
     }
   };
 
   const updatePersonalInfo = (field, value) => {
-    setUserDetails(prev => ({
+    setUserDetails((prev) => ({
       ...prev,
       personalInfo: {
         ...prev.personalInfo,
-        [field]: value
-      }
+        [field]: value,
+      },
     }));
   };
 
   const updateMailingAddress = (field, value) => {
-    setUserDetails(prev => ({
+    setUserDetails((prev) => ({
       ...prev,
       mailingAddress: {
         ...prev.mailingAddress,
-        [field]: value
-      }
+        [field]: value,
+      },
     }));
   };
 
   const updatePaymentMethod = (id, field, value) => {
-    setUserDetails(prev => ({
+    setUserDetails((prev) => ({
       ...prev,
-      paymentMethods: prev.paymentMethods.map(method => 
-        method.id === id 
-          ? { ...method, [field]: value }
-          : method
-      )
+      paymentMethods: prev.paymentMethods.map((method) =>
+        method.id === id ? { ...method, [field]: value } : method,
+      ),
     }));
   };
 
   const setDefaultPaymentMethod = (id) => {
-    setUserDetails(prev => ({
+    setUserDetails((prev) => ({
       ...prev,
-      paymentMethods: prev.paymentMethods.map(method => ({
+      paymentMethods: prev.paymentMethods.map((method) => ({
         ...method,
-        isDefault: method.id === id
-      }))
+        isDefault: method.id === id,
+      })),
     }));
   };
 
@@ -110,11 +106,11 @@ const AccountDetails = () => {
     <div className="account-section">
       <div className="section-header">
         <h3>Personal Information</h3>
-        <button 
-          onClick={() => handleEditToggle('personalInfo')}
+        <button
+          onClick={() => handleEditToggle("personalInfo")}
           className="edit-btn"
         >
-          {isEditing.personalInfo ? 'Save' : 'Edit'}
+          {isEditing.personalInfo ? "Save" : "Edit"}
         </button>
       </div>
       <div className="section-content">
@@ -122,26 +118,26 @@ const AccountDetails = () => {
           <>
             <div className="input-group">
               <label>Name</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={userDetails.personalInfo.name}
-                onChange={(e) => updatePersonalInfo('name', e.target.value)}
+                onChange={(e) => updatePersonalInfo("name", e.target.value)}
               />
             </div>
             <div className="input-group">
               <label>Email</label>
-              <input 
-                type="email" 
+              <input
+                type="email"
                 value={userDetails.personalInfo.email}
-                onChange={(e) => updatePersonalInfo('email', e.target.value)}
+                onChange={(e) => updatePersonalInfo("email", e.target.value)}
               />
             </div>
             <div className="input-group">
               <label>Phone</label>
-              <input 
-                type="tel" 
+              <input
+                type="tel"
                 value={userDetails.personalInfo.phone}
-                onChange={(e) => updatePersonalInfo('phone', e.target.value)}
+                onChange={(e) => updatePersonalInfo("phone", e.target.value)}
               />
             </div>
           </>
@@ -160,11 +156,11 @@ const AccountDetails = () => {
     <div className="account-section">
       <div className="section-header">
         <h3>Mailing Address</h3>
-        <button 
-          onClick={() => handleEditToggle('mailingAddress')}
+        <button
+          onClick={() => handleEditToggle("mailingAddress")}
           className="edit-btn"
         >
-          {isEditing.mailingAddress ? 'Save' : 'Edit'}
+          {isEditing.mailingAddress ? "Save" : "Edit"}
         </button>
       </div>
       <div className="section-content">
@@ -172,50 +168,56 @@ const AccountDetails = () => {
           <>
             <div className="input-group">
               <label>Street</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={userDetails.mailingAddress.street}
-                onChange={(e) => updateMailingAddress('street', e.target.value)}
+                onChange={(e) => updateMailingAddress("street", e.target.value)}
               />
             </div>
             <div className="input-group">
               <label>Apartment</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={userDetails.mailingAddress.apartment}
-                onChange={(e) => updateMailingAddress('apartment', e.target.value)}
+                onChange={(e) =>
+                  updateMailingAddress("apartment", e.target.value)
+                }
               />
             </div>
             <div className="input-group">
               <label>City</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={userDetails.mailingAddress.city}
-                onChange={(e) => updateMailingAddress('city', e.target.value)}
+                onChange={(e) => updateMailingAddress("city", e.target.value)}
               />
             </div>
             <div className="input-group">
               <label>State</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={userDetails.mailingAddress.state}
-                onChange={(e) => updateMailingAddress('state', e.target.value)}
+                onChange={(e) => updateMailingAddress("state", e.target.value)}
               />
             </div>
             <div className="input-group">
               <label>Zip Code</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={userDetails.mailingAddress.zipCode}
-                onChange={(e) => updateMailingAddress('zipCode', e.target.value)}
+                onChange={(e) =>
+                  updateMailingAddress("zipCode", e.target.value)
+                }
               />
             </div>
             <div className="input-group">
               <label>Country</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={userDetails.mailingAddress.country}
-                onChange={(e) => updateMailingAddress('country', e.target.value)}
+                onChange={(e) =>
+                  updateMailingAddress("country", e.target.value)
+                }
               />
             </div>
           </>
@@ -237,7 +239,7 @@ const AccountDetails = () => {
         <h3>Payment Methods</h3>
         <button className="add-btn">+ Add New Card</button>
       </div>
-      {userDetails.paymentMethods.map(method => (
+      {userDetails.paymentMethods.map((method) => (
         <div key={method.id} className="payment-method">
           <div className="payment-method-header">
             <span className="card-type">{method.cardType}</span>
@@ -247,26 +249,32 @@ const AccountDetails = () => {
             <div className="payment-method-edit">
               <div className="input-group">
                 <label>Card Type</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={method.cardType}
-                  onChange={(e) => updatePaymentMethod(method.id, 'cardType', e.target.value)}
+                  onChange={(e) =>
+                    updatePaymentMethod(method.id, "cardType", e.target.value)
+                  }
                 />
               </div>
               <div className="input-group">
                 <label>Last Four Digits</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={method.lastFour}
-                  onChange={(e) => updatePaymentMethod(method.id, 'lastFour', e.target.value)}
+                  onChange={(e) =>
+                    updatePaymentMethod(method.id, "lastFour", e.target.value)
+                  }
                 />
               </div>
               <div className="input-group">
                 <label>Expiry Date</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={method.expiryDate}
-                  onChange={(e) => updatePaymentMethod(method.id, 'expiryDate', e.target.value)}
+                  onChange={(e) =>
+                    updatePaymentMethod(method.id, "expiryDate", e.target.value)
+                  }
                 />
               </div>
             </div>
@@ -278,18 +286,18 @@ const AccountDetails = () => {
           )}
           <div className="payment-method-actions">
             {!method.isDefault && (
-              <button 
+              <button
                 onClick={() => setDefaultPaymentMethod(method.id)}
                 className="set-default-btn"
               >
                 Set as Default
               </button>
             )}
-            <button 
-              onClick={() => handleEditToggle('paymentMethod', method.id)}
+            <button
+              onClick={() => handleEditToggle("paymentMethod", method.id)}
               className="edit-btn"
             >
-              {isEditing.paymentMethod === method.id ? 'Save' : 'Edit'}
+              {isEditing.paymentMethod === method.id ? "Save" : "Edit"}
             </button>
           </div>
         </div>
@@ -299,7 +307,7 @@ const AccountDetails = () => {
 
   return (
     <div className="account-details-container">
-    <title>Account Information</title>
+      <title>Account Information</title>
       <h2>Account Details</h2>
       {renderPersonalInfoSection()}
       {renderMailingAddressSection()}

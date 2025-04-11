@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link as RouterLink } from 'react-router-dom'; // Import RouterLink
-import { Button } from '@chakra-ui/react'; // Ensure Chakra UI is installed
-import './Login.css'; // Ensure this import is correct
+import React, { useState } from "react";
+import axios from "axios";
+import { Link as RouterLink } from "react-router-dom"; // Import RouterLink
+import { Button } from "@chakra-ui/react"; // Ensure Chakra UI is installed
+import "./Login.css"; // Ensure this import is correct
 
 const Login = () => {
-  const [formData, setFormData] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   // Handle input changes
   const handleChange = (e) => {
@@ -18,21 +18,24 @@ const Login = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
 
     try {
       // Send login request to the backend
-      const response = await axios.post('http://localhost:5001/api/auth/login', formData);
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/login",
+        formData,
+      );
       const { token } = response.data;
 
       // Save the token to localStorage
-      localStorage.setItem('jwtToken', token);
+      localStorage.setItem("jwtToken", token);
 
-      setSuccess('Login successful!');
-      console.log('JWT Token:', token);
+      setSuccess("Login successful!");
+      console.log("JWT Token:", token);
     } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred');
+      setError(err.response?.data?.message || "An error occurred");
     }
   };
 
@@ -43,7 +46,9 @@ const Login = () => {
         <form onSubmit={handleSubmit}>
           {["username", "password"].map((field) => (
             <div className="form-group" key={field}>
-              <label htmlFor={field}>{field.charAt(0).toUpperCase() + field.slice(1)}:</label>
+              <label htmlFor={field}>
+                {field.charAt(0).toUpperCase() + field.slice(1)}:
+              </label>
               <input
                 type={field === "password" ? "password" : "text"}
                 id={field}
@@ -56,11 +61,18 @@ const Login = () => {
           {error && <p className="error-message">{error}</p>}
           {success && <p className="success-message">{success}</p>}
           <div className="form-group">
-            <button type="submit" className="login-button">Login</button>
+            <button type="submit" className="login-button">
+              Login
+            </button>
           </div>
           <div className="form-group">
             {/* Register Button */}
-            <Button as={RouterLink} to="/register" colorScheme="blue" variant="solid">
+            <Button
+              as={RouterLink}
+              to="/register"
+              colorScheme="blue"
+              variant="solid"
+            >
               Register
             </Button>
           </div>
