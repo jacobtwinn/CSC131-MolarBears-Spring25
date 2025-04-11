@@ -1,7 +1,3 @@
 export function Contact() {
-    return (
-        <>
-            Contact Page
-        </>
-    )
+  return <>Contact Page</>;
 }

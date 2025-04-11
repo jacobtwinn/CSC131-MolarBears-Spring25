@@ -61,7 +61,10 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5001/api/auth/register", formData);
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/register",
+        formData,
+      );
       setSuccess(response.data.message);
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");

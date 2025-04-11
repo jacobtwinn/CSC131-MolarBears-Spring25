@@ -4,6 +4,9 @@ import Navbar from "./components/ui/Navbar";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Footer from "./components/ui/Footer";
+
+
 import UserDashboard from "./pages/userDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
@@ -23,6 +26,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </>
   );
 }
