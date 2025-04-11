@@ -197,11 +197,11 @@ const Home = () => {
             <GridItem>
               <VStack align="start" spacing={4}>
                 <Box w={12} h={12}>
-                  <Image
-                    src="/public/preventive-icon.png"
-                    alt="Preventive Care Icon"
-                    w="full"
-                    h="full"
+                  <Image 
+                    src="/preventive-icon.png" 
+                    alt="Preventive Care Icon" 
+                    w="full" 
+                    h="full" 
                   />
                 </Box>
                 <Text fontWeight="bold" fontSize="xl">
@@ -218,11 +218,11 @@ const Home = () => {
             <GridItem>
               <VStack align="start" spacing={4}>
                 <Box w={12} h={12}>
-                  <Image
-                    src="/public/restorative-icon.png"
-                    alt="Restorative Care Icon"
-                    w="full"
-                    h="full"
+                  <Image 
+                    src="/restorative-icon.png" 
+                    alt="Restorative Care Icon" 
+                    w="full" 
+                    h="full" 
                   />
                 </Box>
                 <Text fontWeight="bold" fontSize="xl">
@@ -243,11 +243,11 @@ const Home = () => {
             <GridItem>
               <VStack align="start" spacing={4}>
                 <Box w={12} h={12}>
-                  <Image
-                    src="/public/orthodontic-icon.png"
-                    alt="Orthodontic Care Icon"
-                    w="full"
-                    h="full"
+                  <Image 
+                    src="/orthodontic-icon.png" 
+                    alt="Orthodontic Care Icon" 
+                    w="full" 
+                    h="full" 
                   />
                 </Box>
                 <Text fontWeight="bold" fontSize="xl">

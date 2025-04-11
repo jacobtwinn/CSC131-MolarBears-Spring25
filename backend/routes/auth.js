@@ -5,10 +5,15 @@ import mongoose from "mongoose";
 
 const router = express.Router();
 
-// User model (replace with your actual database model)
+// User model
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  gender: { type: String, required: true },
+  dob: { type: Date, required: true },
   isAdmin: { type: Boolean, default: false },
 });
 
@@ -16,20 +21,34 @@ const User = mongoose.model("User", UserSchema);
 
 // Register route
 router.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, firstName, lastName, email, gender, dob } = req.body;
 
   try {
-    // Check if the user already exists
+    // Check if the username already exists
     const existingUser = await User.findOne({ username });
     if (existingUser) {
       return res.status(400).json({ message: "Username already exists" });
+    }
+
+    // Check if the email is already in use
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ message: "Email already exists" });
     }
 
     // Hash the password
     const hashedPassword = bcrypt.hashSync(password, 10);
 
     // Create a new user
-    const newUser = new User({ username, password: hashedPassword });
+    const newUser = new User({
+      username,
+      password: hashedPassword,
+      firstName,
+      lastName,
+      email,
+      gender,
+      dob,
+    });
     await newUser.save();
 
     // Generate a JWT for the new user

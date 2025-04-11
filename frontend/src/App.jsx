@@ -7,6 +7,8 @@ import Register from "./pages/Register";
 import Footer from "./components/ui/Footer";
 
 
+import UserDashboard from "./pages/userDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 function App() {
   return (
     <>
@@ -16,6 +18,13 @@ function App() {
         {/* Other routes can be added here */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/userDashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </>
