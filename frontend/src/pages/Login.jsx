@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link as RouterLink } from 'react-router-dom'; // Import RouterLink
+import { Link as RouterLink, useNavigate } from 'react-router-dom'; // Import RouterLink
 import { Button } from '@chakra-ui/react'; // Ensure Chakra UI is installed
 import './Login.css'; // Ensure this import is correct
 
@@ -8,6 +8,7 @@ const Login = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   // Handle input changes
   const handleChange = (e) => {
@@ -31,6 +32,9 @@ const Login = () => {
 
       setSuccess('Login successful!');
       console.log('JWT Token:', token);
+
+      // Redirect to userDashboard.jsx
+      navigate('/userDashboard'); 
     } catch (err) {
       setError(err.response?.data?.message || 'An error occurred');
     }
