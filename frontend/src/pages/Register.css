@@ -13,12 +13,14 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
+  overflow: hidden;
 }
 
 .register-box h2 {
   text-align: center;
   margin-bottom: 1.5rem;
   color: #333;
+  font-weight: 600;
 }
 
 .register-box form {
@@ -59,6 +61,7 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%; /* Ensure buttons span the full width of their container */
 }
 
 .register-box button:hover {
@@ -78,4 +81,32 @@
 .register-box .success-message {
   color: green;
   font-size: 0.9rem;
+}
+
+.step-container {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: all .25s ease-in-out;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.step-container.active {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Space out the buttons */
+  gap: 1rem; /* Add spacing between the buttons */
+  margin-top: 1rem; /* Add spacing above the button group */
+  width: 100%; /* Ensure the button group takes up the full width */
+}
+
+.button-group button {
+  flex: 1; /* Make both buttons take up equal space */
 }
