@@ -282,7 +282,7 @@ const Home = () => {
               overflow="hidden"
             >
               <Image
-                src="/public/professional.jpg"
+                src="/professional.jpg"
                 alt="Dental professional smiling"
                 w="full"
               />
@@ -351,7 +351,7 @@ const Home = () => {
         overflow="hidden"
       >
         <Image
-          src="/public/woman_patient.jpg"
+          src="/woman_patient.jpg"
           alt="Happy woman with curly hair"
           objectFit="cover"
           w="full"
@@ -390,7 +390,7 @@ const Home = () => {
           overflow="hidden"
         >
           <Image
-            src="/public/happy_patient.jpg"
+            src="/happy_patient.jpg"
             alt="Happy man with beard"
             objectFit="cover"
             w="full"
