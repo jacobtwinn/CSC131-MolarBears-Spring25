@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Register.css"; // Import the CSS file
+import "/src/CSS/Register.css"; // Import the CSS file
 
 const Register = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });

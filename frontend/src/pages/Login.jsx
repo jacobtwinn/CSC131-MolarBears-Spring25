@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link as RouterLink } from 'react-router-dom'; // Import RouterLink
 import { Button } from '@chakra-ui/react'; // Ensure Chakra UI is installed
-import './Login.css'; // Ensure this import is correct
+import '/src/CSS/Login.css'; // Ensure this import is correct
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: '', password: '' });

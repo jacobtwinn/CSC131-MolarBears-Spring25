@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import detect from "detect-port"; // Import detect-port
+import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
 
 dotenv.config({ path: "../.env" });
 
@@ -21,6 +22,10 @@ mongoose
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api", VisitHistoryRoutes);
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 // Detect an available port
 const DEFAULT_PORT = process.env.PORT || 5001;
