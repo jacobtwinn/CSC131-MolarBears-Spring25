@@ -10,8 +10,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VisitsPage from "./pages/VisitHist";
 import FinancialHist from "./pages/FinancialHist";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
 import Footer from "./components/ui/Footer";
 import UserDashboard from "./pages/UserDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -41,6 +39,15 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/visit-history" element={<VisitsPage />} />
         <Route path="/financial-history" element={<FinancialHist />} />
+        {/* Protected Routes */}
+        <Route
+          path="/userDashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
       <Footer />
     </>
