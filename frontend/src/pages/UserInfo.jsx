@@ -6,7 +6,12 @@ const AccountDetails = () => {
     personalInfo: {
       name: 'John Doe',
       email: 'johndoe@example.com',
-      phone: '(555) 123-4567'
+      phone: '(555) 123-4567',
+      insurance: 'Allstate',
+      userID: '1234567890',
+      DOB: '01/01/1980',
+      gender: 'Male',
+      profilePicture: 'https://p0.pikist.com/photos/675/743/man-smile-portrait-men-adult-one-person-smiling-caucasian-ethnicity-males.jpg'
     },
     mailingAddress: {
       street: '123 Main Street',
@@ -22,7 +27,9 @@ const AccountDetails = () => {
         type: 'Credit Card',
         cardType: 'Visa',
         lastFour: '4567',
+        cardNumber: '4578124514574567',
         expiryDate: '12/2028',
+        PIN: '114',
         isDefault: true
       },
       {
@@ -30,7 +37,9 @@ const AccountDetails = () => {
         type: 'Debit Card',
         cardType: 'Mastercard',
         lastFour: '1234',
+        cardNumber: '5123456789011234',
         expiryDate: '06/2026',
+        PIN: '123',
         isDefault: false
       }
     ]
@@ -42,16 +51,43 @@ const AccountDetails = () => {
     paymentMethod: null
   });
 
+  const deletePaymentMethod = (id) => {
+    setUserDetails(prev => ({
+      ...prev,
+      paymentMethods: prev.paymentMethods.filter(method => method.id !== id)
+    }));
   
-
+    // Reset edit mode if the deleted card was being edited
+    if (isEditing.paymentMethod === id) {
+      setIsEditing(prev => ({
+        ...prev,
+        paymentMethod: null
+      }));
+    }
+  };
+  
   const handleEditToggle = (section, paymentMethodId = null) => {
     if (section === 'paymentMethod') {
       if (isEditing.paymentMethod === paymentMethodId) {
+        // Save mode — exiting edit, update lastFour
+        const currentCard = userDetails.paymentMethods.find(m => m.id === paymentMethodId);
+        const updatedLastFour = currentCard.cardNumber.slice(-4);
+  
+        setUserDetails(prev => ({
+          ...prev,
+          paymentMethods: prev.paymentMethods.map(method => 
+            method.id === paymentMethodId 
+              ? { ...method, lastFour: updatedLastFour }
+              : method
+          )
+        }));
+  
         setIsEditing(prev => ({
           ...prev,
           paymentMethod: null
         }));
       } else {
+        // Enter edit mode
         setIsEditing(prev => ({
           ...prev,
           paymentMethod: paymentMethodId
@@ -105,6 +141,30 @@ const AccountDetails = () => {
       }))
     }));
   };
+  const addNewPaymentMethod = () => {
+    const newId = Date.now(); // simple unique ID
+    const newCard = {
+      id: newId,
+      type: 'Credit Card',
+      cardType: '',
+      lastFour: '',
+      cardNumber: '',
+      pin: '',
+      expiryDate: '',
+      isDefault: false
+    };
+  
+    setUserDetails(prev => ({
+      ...prev,
+      paymentMethods: [...prev.paymentMethods, newCard]
+    }));
+  
+    setIsEditing(prev => ({
+      ...prev,
+      paymentMethod: newId
+    }));
+  };
+  
 
   const renderPersonalInfoSection = () => (
     <div className="account-section">
@@ -121,7 +181,7 @@ const AccountDetails = () => {
         {isEditing.personalInfo ? (
           <>
             <div className="input-group">
-              <label>Name</label>
+              <label>Name: First Last</label>
               <input 
                 type="text" 
                 value={userDetails.personalInfo.name}
@@ -137,6 +197,14 @@ const AccountDetails = () => {
               />
             </div>
             <div className="input-group">
+              <label>Gender</label>
+              <input 
+                type="gender" 
+                value={userDetails.personalInfo.gender}
+                onChange={(e) => updatePersonalInfo('gender', e.target.value)}
+              />
+            </div>
+            <div className="input-group">
               <label>Phone</label>
               <input 
                 type="tel" 
@@ -144,17 +212,60 @@ const AccountDetails = () => {
                 onChange={(e) => updatePersonalInfo('phone', e.target.value)}
               />
             </div>
+            <div className="input-group">
+              <label>Insurance</label>
+              <input 
+                type="text" 
+                value={userDetails.personalInfo.insurance}
+                onChange={(e) => updatePersonalInfo('insurance', e.target.value)}
+              />
+            </div>
+            <div className="input-group">
+              <label>User ID</label>
+              <input 
+                type="text" 
+                value={userDetails.personalInfo.userID}
+                onChange={(e) => updatePersonalInfo('userID', e.target.value)}
+              />
+            </div>
+            <div className="input-group">
+              <label>Date of Birth</label>
+              <input 
+                type="text" 
+                value={userDetails.personalInfo.DOB}
+                onChange={(e) => updatePersonalInfo('DOB', e.target.value)}
+              />
+            </div>
+            <div className="input-group">
+            <label>Upload Profile Picture</label>
+              <input 
+                type="file" 
+                accept="image/png, image/jpeg"
+                onChange={(e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const imageUrl = URL.createObjectURL(file);
+                  updatePersonalInfo('profilePicture', imageUrl);
+                }
+              }}
+              />
+            </div>
           </>
         ) : (
           <>
-            <p>{userDetails.personalInfo.name}</p>
-            <p>{userDetails.personalInfo.email}</p>
-            <p>{userDetails.personalInfo.phone}</p>
+            <p><strong>Name: </strong>{userDetails.personalInfo.name}</p>
+            <p><strong>E-mail: </strong>{userDetails.personalInfo.email}</p>
+            <p><strong>Phone Number: </strong>{userDetails.personalInfo.phone}</p>
+            <p><strong>Insurance: </strong> {userDetails.personalInfo.insurance}</p>
+            <p><strong>User ID: </strong> {userDetails.personalInfo.userID}</p>
+            <p><strong>Gender: </strong> {userDetails.personalInfo.gender}</p>
+            <p><strong>Date of Birth: </strong> {userDetails.personalInfo.DOB}</p>
           </>
         )}
       </div>
     </div>
   );
+  
 
   const renderMailingAddressSection = () => (
     <div className="account-section">
@@ -221,10 +332,10 @@ const AccountDetails = () => {
           </>
         ) : (
           <>
-            <p>{userDetails.mailingAddress.street}</p>
-            <p>{userDetails.mailingAddress.apartment}</p>
-            <p>{`${userDetails.mailingAddress.city}, ${userDetails.mailingAddress.state} ${userDetails.mailingAddress.zipCode}`}</p>
-            <p>{userDetails.mailingAddress.country}</p>
+            <p><strong>Street: </strong>{userDetails.mailingAddress.street}</p>
+            <p><strong>Apt: </strong>{userDetails.mailingAddress.apartment}</p>
+            <p><strong>Address: </strong>{`${userDetails.mailingAddress.city}, ${userDetails.mailingAddress.state} ${userDetails.mailingAddress.zipCode}`}</p>
+            <p><strong>Country: </strong>{userDetails.mailingAddress.country}</p>
           </>
         )}
       </div>
@@ -235,7 +346,7 @@ const AccountDetails = () => {
     <div className="account-section">
       <div className="section-header">
         <h3>Payment Methods</h3>
-        <button className="add-btn">+ Add New Card</button>
+        <button className="add-btn" onClick={addNewPaymentMethod}>+ Add New Card</button>
       </div>
       {userDetails.paymentMethods.map(method => (
         <div key={method.id} className="payment-method">
@@ -254,14 +365,6 @@ const AccountDetails = () => {
                 />
               </div>
               <div className="input-group">
-                <label>Last Four Digits</label>
-                <input 
-                  type="text" 
-                  value={method.lastFour}
-                  onChange={(e) => updatePaymentMethod(method.id, 'lastFour', e.target.value)}
-                />
-              </div>
-              <div className="input-group">
                 <label>Expiry Date</label>
                 <input 
                   type="text" 
@@ -269,11 +372,28 @@ const AccountDetails = () => {
                   onChange={(e) => updatePaymentMethod(method.id, 'expiryDate', e.target.value)}
                 />
               </div>
+              <div className="input-group">
+              <label>Card Number</label>
+                <input 
+                  type="text" 
+                  value={method.cardNumber}
+                  onChange={(e) => updatePaymentMethod(method.id, 'cardNumber', e.target.value)}
+                />
+              </div>
+              <div className="input-group">
+                <label>PIN</label>
+                <input 
+                  type="password" 
+                  value={method.PIN}
+                  onChange={(e) => updatePaymentMethod(method.id, 'pin', e.target.value)}
+                />
+              </div>
             </div>
           ) : (
             <div className="payment-method-details">
-              <p>**** **** **** {method.lastFour}</p>
+              <p>Card Number: •••• •••• •••• {method.lastFour}</p>
               <p>Expires: {method.expiryDate}</p>
+              <p>PIN: •••</p>
             </div>
           )}
           <div className="payment-method-actions">
@@ -285,11 +405,13 @@ const AccountDetails = () => {
                 Set as Default
               </button>
             )}
-            <button 
-              onClick={() => handleEditToggle('paymentMethod', method.id)}
-              className="edit-btn"
-            >
+            <button onClick={() => handleEditToggle('paymentMethod', method.id)}
+              className="edit-btn">
               {isEditing.paymentMethod === method.id ? 'Save' : 'Edit'}
+            </button>
+            <button onClick={() => deletePaymentMethod(method.id)}
+              className="delete-btn" >
+              Delete
             </button>
           </div>
         </div>
@@ -299,13 +421,21 @@ const AccountDetails = () => {
 
   return (
     <div className="account-details-container">
-    <title>Account Information</title>
-      <h2>Account Details</h2>
+      <div className="header-with-picture">
+        <img 
+          src={userDetails.personalInfo.profilePicture} 
+          alt="Profile" 
+          className="small-profile-picture"
+        />
+        <h2>Account Details</h2>
+        <title>Account Details</title>
+      </div>
       {renderPersonalInfoSection()}
       {renderMailingAddressSection()}
       {renderPaymentMethodsSection()}
     </div>
   );
+  
 };
 
 export default AccountDetails;
