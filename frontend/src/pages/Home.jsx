@@ -184,7 +184,7 @@ const Home = () => {
           >
             {/* Left side heading */}
             <Box maxW={["100%", "40%"]}>
-              <Text
+              <Text id="care-section"
                 fontSize={["3xl", "4xl", "5xl"]}
                 fontWeight="bold"
                 lineHeight="tight"
@@ -204,7 +204,7 @@ const Home = () => {
           <Grid templateColumns={["1fr", "1fr", "repeat(3, 1fr)"]} gap={8}>
             {/* Preventive Care */}
             <GridItem>
-              <VStack id="care-section" align="start" spacing={4}>
+              <VStack align="start" spacing={4}>
                 <Box w={12} h={12}>
                   <Image 
                     src="/preventive-icon.png" 
