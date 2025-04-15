@@ -13,6 +13,7 @@ import {
   Icon,
   Center,
 } from "@chakra-ui/react";
+import { HashLink, NavHashLink } from "react-router-hash-link";
 
 const Home = () => {
   return (
@@ -59,9 +60,12 @@ const Home = () => {
                 01.
               </Text>
               <Text fontWeight="semibold">Preventive Care</Text>
-              <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                Learn More
-              </Button>
+              <HashLink smooth to='#care-section' >
+                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
+                  Learn More
+                </Button>
+              </HashLink>
+
             </VStack>
 
             {/* Restorative Care */}
@@ -77,9 +81,11 @@ const Home = () => {
                 02.
               </Text>
               <Text fontWeight="semibold">Restorative Care</Text>
-              <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                Learn More
-              </Button>
+              <HashLink smooth to='#care-section' >
+                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
+                  Learn More
+                </Button>
+              </HashLink>
             </VStack>
 
             {/* Orthodontic Care */}
@@ -95,9 +101,12 @@ const Home = () => {
                 03.
               </Text>
               <Text fontWeight="semibold">Orthodontic Care</Text>
-              <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                Learn More
-              </Button>
+              <HashLink smooth to='#care-section' >
+                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
+                  Learn More
+                </Button>
+              </HashLink>
+
             </VStack>
           </HStack>
         </VStack>
@@ -195,7 +204,7 @@ const Home = () => {
           <Grid templateColumns={["1fr", "1fr", "repeat(3, 1fr)"]} gap={8}>
             {/* Preventive Care */}
             <GridItem>
-              <VStack align="start" spacing={4}>
+              <VStack id="care-section" align="start" spacing={4}>
                 <Box w={12} h={12}>
                   <Image 
                     src="/preventive-icon.png" 
