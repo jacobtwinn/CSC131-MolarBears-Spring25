@@ -14,15 +14,15 @@ use('mongodbVSCodePlaygroundDB');
 
 // Insert a few documents into the sales collection.
 db.getCollection('VisitHistory').insertMany([
-  { 'date': "21 Dec, 2024", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
-  { 'date': "13 Nov, 2023", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Root Canal' },
-  { 'date': "27 Oct, 2023", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
-  { 'date': "07 Sep, 2022", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-  { 'date': "13 Aug, 2021", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
-  { 'date': "09 Jul, 2020", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-  { 'date': "27 Jun, 2019", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-  { 'date': "05 May, 2018", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-  { 'date': "03 Mar, 2017", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
+  { 'date': new Date('21 Dec, 2024'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
+  { 'date': new Date('13 Nov, 2023'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Root Canal' },
+  { 'date': new Date('27 Oct, 2023'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
+  { 'date': new Date('07 Sep, 2022'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
+  { 'date': new Date('03 Aug, 2021'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
+  { 'date': new Date('09 Jul, 2020'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
+  { 'date': new Date('27 Jun, 2019'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
+  { 'date': new Date('05 May, 2018'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
+  { 'date': new Date('03 Mar, 2017'), 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
 ]);
 
 // Run a find command to view items sold on April 4th, 2014.

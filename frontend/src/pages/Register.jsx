@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./Register.css"; // Import the CSS file
+import "/src/CSS/Register.css"; // Import the CSS file
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -61,7 +61,10 @@ const Register = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5001/api/auth/register", formData);
+      const response = await axios.post(
+        "http://localhost:5001/api/auth/register",
+        formData,
+      );
       setSuccess(response.data.message);
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");
