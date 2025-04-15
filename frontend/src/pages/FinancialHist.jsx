@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '/src/CSS/FinancialHist.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "/src/CSS/FinancialHist.css";
 
 const FinancialPage = () => {
-  console.log('Rendering FinancialPage'); // Debugging log
+  console.log("Rendering FinancialPage"); // Debugging log
   const [financialData, setFinancialData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -87,7 +87,7 @@ const FinancialPage = () => {
   };
 
   const handlePayNow = () => {
-    console.log('Processing payment');
+    console.log("Processing payment");
   };
 
   // Conditional rendering logic after all Hooks
@@ -100,7 +100,7 @@ const FinancialPage = () => {
   }
 
   const pendingAmount = financialData
-    .filter((item) => item.status.toLowerCase() === 'pending')
+    .filter((item) => item.status.toLowerCase() === "pending")
     .reduce((total, item) => total + item.amount, 0)
     .toFixed(2);
 
@@ -133,7 +133,9 @@ const FinancialPage = () => {
         <table className="financial-table">
           <thead>
             <tr>
-              <th className="date-column">DATE <span className="sort-icon">↕</span></th>
+              <th className="date-column">
+                DATE <span className="sort-icon">↕</span>
+              </th>
               <th className="service-column">SERVICE</th>
               <th className="amount-column">AMOUNT DUE</th>
               <th className="status-column">STATUS</th>
@@ -147,12 +149,17 @@ const FinancialPage = () => {
                 <td>{item.service}</td>
                 <td>${item.amount.toFixed(2)}</td>
                 <td>
-                  <label className={`status-indicator ${item.status.toLowerCase()}`}>
+                  <label
+                    className={`status-indicator ${item.status.toLowerCase()}`}
+                  >
                     {item.status}
                   </label>
                 </td>
                 <td>
-                  <button className="download-btn" onClick={() => handleDownload(item._id)}>
+                  <button
+                    className="download-btn"
+                    onClick={() => handleDownload(item._id)}
+                  >
                     [Download]
                   </button>
                 </td>
