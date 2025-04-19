@@ -2,22 +2,9 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
+import User from "../models/User.js"; // Adjust the path as necessary
 
 const router = express.Router();
-
-// User model
-const UserSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  gender: { type: String, required: true },
-  dob: { type: Date, required: true },
-  isAdmin: { type: Boolean, default: false },
-});
-
-const User = mongoose.model("User", UserSchema);
 
 // Register route
 router.post("/register", async (req, res) => {
@@ -48,6 +35,8 @@ router.post("/register", async (req, res) => {
       email,
       gender,
       dob,
+      resetPasswordToken: "",
+      resetPasswordExpires: 0,
     });
     await newUser.save();
 

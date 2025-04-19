@@ -80,6 +80,12 @@ const Login = () => {
               Register
             </Button>
           </div>
+          <div className="form-group">
+            {/* Forgot Password Button */}
+            <Button as={RouterLink} to="/forgot-password" colorScheme="teal" variant="link">
+              Forgot Password?
+            </Button>
+            </div>
         </form>
       </div>
     </div>

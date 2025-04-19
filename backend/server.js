@@ -3,9 +3,11 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
+import resetRoutes from "./routes/resetPassword.js"; // Import reset password routes
 import detect from "detect-port"; // Import detect-port
 import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
 import financialHistoryRoute from './routes/financialHistoryRoute.js';
+
 
 dotenv.config({ path: "../.env" });
 
@@ -31,6 +33,7 @@ app.use("/api", financialHistoryRoute);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
+app.use("/api/reset", resetRoutes); // Use the same routes for reset password
 
 // Detect an available port
 const DEFAULT_PORT = process.env.PORT || 5001;
