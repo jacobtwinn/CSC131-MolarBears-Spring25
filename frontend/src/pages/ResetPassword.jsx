@@ -26,10 +26,14 @@ const ResetPassword = () => {
       return;
     }
     try {
-      const response = await fetch("http://localhost:5001/api/auth/reset-password-confirm", {
+    //const decodedToken = decodeURIComponent(token)
+    
+      console.log(JSON.stringify({ token: token, newPassword }));
+
+      const response = await fetch("http://localhost:5001/api/reset/password-confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, newPassword }),
+        body: JSON.stringify({ token: token, newPassword }),
       });
 
       const data = await response.json();

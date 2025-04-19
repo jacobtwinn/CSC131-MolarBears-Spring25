@@ -5,7 +5,6 @@ import nodemailer from "nodemailer";
 
 const sendPasswordResetEmail = async (userEmail, resetLink) => {
   try {
-    console.log("sendPasswordResetEmail called with:", userEmail, resetLink);
 
     // Verify environment variables
     if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
@@ -28,16 +27,16 @@ const sendPasswordResetEmail = async (userEmail, resetLink) => {
     await transporter.verify();
     console.log("Transporter verified successfully.");
 
+    let htmlText = "<p>You requested a password reset. Click the link below to reset your password:</p>";
+    htmlText += "<p><a href=" + resetLink + ">" + resetLink + "</a></p>";
+    htmlText += "<p>If you did not request this, please ignore this email.</p>";
+
     // Email options
     const mailOptions = {
       from: process.env.GMAIL_USER, // Sender address
       to: userEmail, // Recipient's email
       subject: "Password Reset Request",
-      html: `
-        <p>You requested a password reset. Click the link below to reset your password:</p>
-        <a href="${resetLink}">${resetLink}</a>
-        <p>If you did not request this, please ignore this email.</p>
-      `,
+      html: htmlText, // HTML body
     };
 
     // Send the email
