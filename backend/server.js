@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import resetRoutes from "./routes/resetPassword.js";
+import Appointment from "./routes/appointments.js";
 import detect from "detect-port";
 import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
 import financialHistoryRoute from './routes/financialHistoryRoute.js';
@@ -26,6 +27,7 @@ mongoose
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api", VisitHistoryRoutes);
+app.use("/api/appointments", Appointment);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });

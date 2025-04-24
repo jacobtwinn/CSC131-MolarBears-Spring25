@@ -16,6 +16,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UserInfo from "./pages/UserInfo";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import DentalAppointments from "./pages/Appointment";
 
 function App() {
   // This state would ideally come from your authentication mechanism
@@ -43,6 +44,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/visit-history" element={<VisitsPage />} />
         <Route path="/financial-history" element={<FinancialHist />} />
+        <Route path="/dental-appointments" element={<DentalAppointments />} />
         {/* Protected Routes */}
         <Route
           path="/userDashboard"
