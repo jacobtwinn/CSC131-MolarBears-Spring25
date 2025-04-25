@@ -5,6 +5,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import detect from "detect-port"; // Import detect-port
 import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
+import ReviewRoutes from './routes/ReviewRoutes.js';
 
 dotenv.config({ path: "../.env" });
 
@@ -23,6 +24,7 @@ mongoose
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api", VisitHistoryRoutes);
+app.use("/api", ReviewRoutes);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
