@@ -1,43 +1,43 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { Link as RouterLink, useNavigate } from 'react-router-dom'; // Import RouterLink
-import { Button } from '@chakra-ui/react'; // Ensure Chakra UI is installed
-import '/src/CSS/Login.css'; // Ensure this import is correct
+import React, { useState } from "react";
+import axios from "axios";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Button } from "@chakra-ui/react";
+import "/src/CSS/Login.css";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
-  const [formData, setFormData] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [formData, setFormData] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
+  const { setIsLoggedIn, refreshUserInfo } = useAuth();
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
+    e.preventDefault();
     setError("");
     setSuccess("");
 
     try {
-      // Send login request to the backend
       const response = await axios.post(
         "http://localhost:5001/api/auth/login",
-        formData,
+        formData
       );
       const { token } = response.data;
 
-      // Save the token to localStorage
       localStorage.setItem("jwtToken", token);
-
-      setSuccess('Login successful!');
-      console.log('JWT Token:', token);
-
-      // Redirect to userDashboard.jsx
-      navigate('/userDashboard'); 
+      setSuccess("Login successful!");
+      console.log("JWT Token:", token);
+      setIsLoggedIn(true);
+      
+      // ✅ Call refreshUserInfo here instead of reloading:
+      refreshUserInfo();
+      
+      navigate("/home"); // or wherever you want to send them
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");
     }
@@ -58,7 +58,7 @@ const Login = () => {
                 id={field}
                 name={field}
                 value={formData[field]}
-                onChange={handleChange} // Update state on input change
+                onChange={handleChange}
               />
             </div>
           ))}
@@ -70,7 +70,6 @@ const Login = () => {
             </button>
           </div>
           <div className="form-group">
-            {/* Register Button */}
             <Button
               as={RouterLink}
               to="/register"
@@ -81,11 +80,15 @@ const Login = () => {
             </Button>
           </div>
           <div className="form-group">
-            {/* Forgot Password Button */}
-            <Button as={RouterLink} to="/forgot-password" colorScheme="teal" variant="link">
+            <Button
+              as={RouterLink}
+              to="/forgot-password"
+              colorScheme="teal"
+              variant="link"
+            >
               Forgot Password?
             </Button>
-            </div>
+          </div>
         </form>
       </div>
     </div>

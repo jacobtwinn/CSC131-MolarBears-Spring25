@@ -16,17 +16,18 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import UserInfo from "./pages/UserInfo";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { isTokenValid } from "./utils/authUtils";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-  // This state would ideally come from your authentication mechanism
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
 
-  // For demonstration, you might check local storage or an API in useEffect
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    console.log("Retrieved token:", token); // Debug: check token value in console
-    if (token) {
+    const token = localStorage.getItem("jwtToken");
+    if (token && isTokenValid(token)) {
       setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
   }, []);
 
@@ -35,7 +36,6 @@ function App() {
       {isLoggedIn ? <LoggedInNavbar /> : <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* Other routes can be added here */}
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/user-info" element={<UserInfo />} />
@@ -43,9 +43,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/visit-history" element={<VisitsPage />} />
         <Route path="/financial-history" element={<FinancialHist />} />
-        {/* Protected Routes */}
         <Route
-          path="/userDashboard"
+          path="/home"
           element={
             <ProtectedRoute>
               <UserDashboard />

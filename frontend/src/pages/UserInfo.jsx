@@ -1,3 +1,4 @@
+// pages.UserInfo.jsx
 import React, { useState } from "react";
 import "/src/CSS/UserInfo.css";
 
@@ -11,7 +12,7 @@ const AccountDetails = () => {
       userID: '1234567890',
       DOB: '01/01/1980',
       gender: 'Male',
-      profilePicture: 'https://p0.pikist.com/photos/675/743/man-smile-portrait-men-adult-one-person-smiling-caucasian-ethnicity-males.jpg'
+      profilePicture: ''
     },
     mailingAddress: {
       street: "123 Main Street",
@@ -428,14 +429,35 @@ const AccountDetails = () => {
   return (
     <div className="account-details-container">
       <div className="header-with-picture">
-        <img 
-          src={userDetails.personalInfo.profilePicture} 
-          alt="Profile" 
-          className="small-profile-picture"
+        <img
+          src={userDetails.personalInfo.profilePicture || "/default-pfp.jpg"}
+          alt="Profile"
+         className="small-profile-picture"
         />
-        <h2>Account Details</h2>
-        <title>Account Details</title>
+
+        <button
+          className="change-photo-btn"
+         onClick={() => document.getElementById("profilePicUpload").click()}
+       >
+          Change Photo
+        </button>
+        <input
+          type="file"
+          id="profilePicUpload"
+          accept="image/png, image/jpeg"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            const file = e.target.files[0];
+           if (file) {
+              const imageUrl = URL.createObjectURL(file);
+              updatePersonalInfo("profilePicture", imageUrl);
+            }
+          }}
+        />
       </div>
+
+      <h2 className="account-title">Account Details</h2>
+
       {renderPersonalInfoSection()}
       {renderMailingAddressSection()}
       {renderPaymentMethodsSection()}
