@@ -2,7 +2,10 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
-import User from "../models/User.js"; // Adjust the path as necessary
+import User from "../models/User.js";
+import dotenv from "dotenv";
+dotenv.config();
+
 
 const router = express.Router();
 
@@ -41,7 +44,7 @@ router.post("/register", async (req, res) => {
     await newUser.save();
 
     // Generate a JWT for the new user
-    const token = jwt.sign({ username }, "your_jwt_secret", { expiresIn: "1h" });
+    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.status(201).json({ message: "User registered successfully", token });
   } catch (error) {
@@ -68,12 +71,36 @@ router.post("/login", async (req, res) => {
     }
 
     // Generate JWT
-    const token = jwt.sign({ username: user.username }, "your_jwt_secret", { expiresIn: "1h" });
+    const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     res.json({ token });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Get current user info
+router.get("/users/me", async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) return res.status(401).json({ message: "Missing token" });
+
+  const token = authHeader.split(" ")[1];
+  try {
+    const { username } = jwt.verify(token, process.env.JWT_SECRET); // make sure JWT_SECRET is set
+    const user = await User.findOne({ username });
+
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    res.json({
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      profilePicture: user.profilePicture || null, // Add this if you support profile pictures
+    });
+  } catch (err) {
+    console.error("Token verification failed:", err);
+    res.status(401).json({ message: "Invalid token" });
   }
 });
 
