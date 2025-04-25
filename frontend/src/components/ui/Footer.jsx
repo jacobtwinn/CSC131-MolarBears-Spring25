@@ -13,6 +13,9 @@ import {
   } from "@chakra-ui/react";
   import { FaPhone, FaEnvelope } from "react-icons/fa";
   import React from "react";
+  import { Link as routerLink } from "react-router-dom";
+ 
+  
   
   
   const Footer = () => {
@@ -31,7 +34,7 @@ import {
                 Patient Information
               </Text>
               <VStack align="start" spacing={2}>
-                <Link color="gray.400">About Us</Link>
+                <Link as={routerLink} to="/about" color="gray.400">About Us</Link>
                 <Link color="gray.400">History</Link>
                 <Link color="gray.400">Before / Afters</Link>
                 <Link color="gray.400">Testimonials</Link>
