@@ -13,10 +13,12 @@ const ForgotPassword = () => {
     setError("");
 
     try {
+
+      const emailLower = email.toLowerCase();
       const response = await fetch("http://localhost:5001/api/reset/password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email: emailLower }),
       });
 
       const data = await response.json();

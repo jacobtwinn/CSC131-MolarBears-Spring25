@@ -13,6 +13,7 @@ import {
   Icon,
   Center,
 } from "@chakra-ui/react";
+import { HashLink, NavHashLink } from "react-router-hash-link";
 
 const Home = () => {
   return (
@@ -59,9 +60,12 @@ const Home = () => {
                 01.
               </Text>
               <Text fontWeight="semibold">Preventive Care</Text>
-              <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                Learn More
-              </Button>
+              <HashLink smooth to='#care-section' >
+                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
+                  Learn More
+                </Button>
+              </HashLink>
+
             </VStack>
 
             {/* Restorative Care */}
@@ -77,9 +81,11 @@ const Home = () => {
                 02.
               </Text>
               <Text fontWeight="semibold">Restorative Care</Text>
-              <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                Learn More
-              </Button>
+              <HashLink smooth to='#care-section' >
+                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
+                  Learn More
+                </Button>
+              </HashLink>
             </VStack>
 
             {/* Orthodontic Care */}
@@ -95,9 +101,12 @@ const Home = () => {
                 03.
               </Text>
               <Text fontWeight="semibold">Orthodontic Care</Text>
-              <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                Learn More
-              </Button>
+              <HashLink smooth to='#care-section' >
+                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
+                  Learn More
+                </Button>
+              </HashLink>
+
             </VStack>
           </HStack>
         </VStack>
@@ -175,7 +184,7 @@ const Home = () => {
           >
             {/* Left side heading */}
             <Box maxW={["100%", "40%"]}>
-              <Text
+              <Text id="care-section"
                 fontSize={["3xl", "4xl", "5xl"]}
                 fontWeight="bold"
                 lineHeight="tight"

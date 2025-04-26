@@ -1,6 +1,6 @@
 // components/LoggedInNavbar.jsx
 import React from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link as RouterLink } from "react-router-dom";
 import {
   Box,
   Flex,
@@ -10,6 +10,11 @@ import {
   Image,
   Spacer,
   Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
 } from "@chakra-ui/react";
 
 // Custom dropdown component with active styling.
@@ -53,6 +58,15 @@ const Dropdown = ({ title, linkBase, children }) => {
 const LoggedInNavbar = () => {
   const location = useLocation();
   const isHomeActive = location.pathname === "/home";
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwtToken"); // or whatever your token key is
+    navigate("/login"); // or redirect wherever you want
+    window.location.reload(); // force re-render to update navbar
+  };
+  
 
   return (
     <Box bg="white" px={6} py={4} boxShadow="sm">
@@ -206,16 +220,27 @@ const LoggedInNavbar = () => {
         <Spacer />
 
         {/* Profile image instead of avatar or sign-out button */}
-        <Box mx={2}>
-          <Link as={RouterLink} to="/profile">
-            <Image
-              src="/profile-icon.png" // Replace with your profile image path or URL.
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            icon={
+              <Image
+              src="/profile-icon.png"
               alt="Profile"
               boxSize="32px"
               borderRadius="full"
             />
-          </Link>
-        </Box>
+          }
+          variant="ghost"
+          _hover={{ bg: "gray.100" }}
+        />
+        <MenuList>
+          <MenuItem as={RouterLink} to="/user-info">
+            Edit Account
+          </MenuItem>
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </MenuList>
+        </Menu>
       </Flex>
     </Box>
   );

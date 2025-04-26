@@ -8,8 +8,10 @@ const router = express.Router();
 
 router.post("/password", async (req, res) => {
     const { email } = req.body;
+    
     console.log("Reset password request received for email:", email);
   
+
     if (!email) {
       return res.status(400).json({ message: "Email is required." });
     }
