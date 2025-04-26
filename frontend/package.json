@@ -30,7 +30,7 @@
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.4.0",
-    "react-router-hash-link": "^2.4.3"
+    "react-router-hash-link": "^2.4.3",
     "react-router-dom": "^7.4.0",
     "react-time-picker": "^7.0.0"
   },
