@@ -40,14 +40,6 @@
     font-size: 14px;
   }
   
-  .edit-button {
-    margin-right: 10px;
-  }
-  
-  .delete-button {
-    color: red;
-  }
-  
   .appointment-form {
     margin-top: 30px;
     max-width: 500px;
@@ -74,5 +66,16 @@
     color: white;
     cursor: pointer;
     border-radius: 4px;
+  }
+  .edit-button{
+    cursor: pointer;
+    padding: 8px 8px;
+    border-radius: 4px;
+  }
+  .delete-button{
+    color: red;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 8px 8px;
   }
   

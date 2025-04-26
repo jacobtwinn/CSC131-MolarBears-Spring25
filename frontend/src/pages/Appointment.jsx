@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
+import TimePicker from 'react-time-picker';
+import 'react-time-picker/dist/TimePicker.css';
 import 'react-calendar/dist/Calendar.css';
+import { format, parse} from 'date-fns';
 import '/src/CSS/Appointment.css';
+import { time } from 'framer-motion';
 
 export default function DentalAppointmentManager() {
   const [date, setDate] = useState(new Date());
@@ -9,34 +13,65 @@ export default function DentalAppointmentManager() {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [form, setForm] = useState({ name: '', time: '' });
 
+  const formattedDate = date.toISOString().split('T')[0];
+  console.log('Formatted Date:', formattedDate);
+
   useEffect(() => {
     fetchAppointments();
-  }, [date]);
+  }, [formattedDate]);
 
   const fetchAppointments = async () => {
-    const response = await fetch(`/api/appointments?date=${date.toISOString().split('T')[0]}`);
-    const data = await response.json();
-    setAppointments(data);
+    try {
+      const response = await fetch(`http://localhost:5001/api/appointments?date=${formattedDate}`);
+      const text = await response.text();
+      const data = JSON.parse(text);
+      setAppointments(data);
+    } catch (err) {
+      console.error('Error fetching appointments:', err);
+    }
   };
-
+  
   const handleSubmit = async () => {
+    const day = date.getDay();
+    if (day === 0 || day === 6) {
+      alert('Appointments cannot be scheduled on weekends. Please select a weekday.');
+      return;
+    }
+    if (!form.name || !form.time) {
+      alert('Please fill in all fields.');
+      return;
+    }
+    const formattedTime = form.time ? format(parse(form.time, 'HH:mm', new Date()), 'hh:mm a') : '';
     const method = selectedAppointment ? 'PUT' : 'POST';
-    const endpoint = selectedAppointment ? `/api/appointments/${selectedAppointment._id}` : '/api/appointments';
+    const endpoint = selectedAppointment
+      ? `http://localhost:5001/api/appointments/${selectedAppointment._id}`
+      : 'http://localhost:5001/api/appointments';
 
-    await fetch(endpoint, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ date: date.toISOString(), ...form })
-    });
-
-    setForm({ name: '', time: '' });
-    setSelectedAppointment(null);
-    fetchAppointments();
+    console.log('Submitting to:', endpoint);
+    console.log('Payload:', { date: formattedDate, ...form });
+    
+    try {
+      await fetch(endpoint, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date: formattedDate, name: form.name, time: formattedTime })
+      });
+      setForm({ name: '', time: '' });
+      setSelectedAppointment(null);
+      fetchAppointments();
+    } catch (err) {
+      console.error('Error handling appointment:', err);
+    }
+    alert(`Appointment ${selectedAppointment ? 'updated' : 'added'} successfully!`);
   };
 
   const handleDelete = async (id) => {
-    await fetch(`/api/appointments/${id}`, { method: 'DELETE' });
-    fetchAppointments();
+    try {
+      await fetch(`http://localhost:5001/api/appointments/${id}`, { method: 'DELETE' });
+      fetchAppointments();
+    } catch (err) {
+      console.error('Error deleting appointment:', err);
+    }
   };
 
   const openEdit = (appt) => {
@@ -74,13 +109,15 @@ export default function DentalAppointmentManager() {
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           className="input-field"
         />
-        <input
-          type="text"
-          placeholder="Time (e.g. 10:30 AM)"
-          value={form.time}
-          onChange={(e) => setForm({ ...form, time: e.target.value })}
-          className="input-field"
-        />
+          <TimePicker
+            onChange={(time) => setForm({ ...form, time })}
+            value={form.time}
+            disableClock={true}
+            format="hh:mm a"
+            clearIcon={null}
+            className="input-field"
+            required={true}
+          />
         <button onClick={handleSubmit} className="submit-button">{selectedAppointment ? 'Update' : 'Add'} Appointment</button>
       </div>
     </div>
