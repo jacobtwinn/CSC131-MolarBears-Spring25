@@ -44,7 +44,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/visit-history" element={<VisitsPage />} />
         <Route path="/financial-history" element={<FinancialHist />} />
-        <Route path="/dental-appointments" element={<DentalAppointments />} />
+        <Route path="/appointments" element={<DentalAppointments />} />
         {/* Protected Routes */}
         <Route
           path="/home"
