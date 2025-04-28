@@ -1,6 +1,6 @@
 // src/components/Demo.jsx
 import React from "react";
-import { Button, HStack } from "@chakra-ui/react"
+import { Button, HStack } from "@chakra-ui/react";
 
 const Demo = () => {
   return (
@@ -8,7 +8,7 @@ const Demo = () => {
       <Button>Click me</Button>
       <Button>Click me</Button>
     </HStack>
-  )
-}
+  );
+};
 
-export default Demo
+export default Demo;

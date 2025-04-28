@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import { MongoClient, ServerApiVersion } from "mongodb";
+dotenv.config({ path: "../.env" });
+mongoose.set("strictQuery", false); // to avoid deprecation warning
+
 export const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI);

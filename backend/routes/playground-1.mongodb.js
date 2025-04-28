@@ -13,32 +13,85 @@
 use('mongodbVSCodePlaygroundDB');
 
 // Insert a few documents into the sales collection.
-db.getCollection('VisitHistory').insertMany([
-  { 'date': "21 Dec, 2024", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
-  { 'date': "13 Nov, 2023", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Root Canal' },
-  { 'date': "27 Oct, 2023", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
-  { 'date': "07 Sep, 2022", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-  { 'date': "13 Aug, 2021", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Cleaning' },
-  { 'date': "09 Jul, 2020", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-  { 'date': "27 Jun, 2019", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-  { 'date': "05 May, 2018", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-  { 'date': "03 Mar, 2017", 'patient': 'Dianne Russell', 'dentist': 'Bob Martin', 'service': 'Check Up' },
-]);
-
-// Run a find command to view items sold on April 4th, 2014.
-const salesOnApril4th = db.getCollection('sales').find({
-  date: { $gte: new Date('2014-04-04'), $lt: new Date('2014-04-05') }
-}).count();
-
-// Print a message to the output window.
-console.log(`${salesOnApril4th} sales occurred in 2014.`);
-
-// Here we run an aggregation and open a cursor to the results.
-// Use '.toArray()' to exhaust the cursor to return the whole result set.
-// You can use '.hasNext()/.next()' to iterate through the cursor page by page.
-db.getCollection('sales').aggregate([
-  // Find all of the sales that occurred in 2014.
-  { $match: { date: { $gte: new Date('2014-01-01'), $lt: new Date('2015-01-01') } } },
-  // Group the total sales for each product.
-  { $group: { _id: '$item', totalSaleAmount: { $sum: { $multiply: [ '$price', '$quantity' ] } } } }
+db.getCollection('Reviews').insertMany([
+  { 'date': new Date('21 Dec, 2024'), 'reviewer': 'Olivia Chen', 'dentist': 'Dr. Bob Martin', "rating": 5, 'review': 'Very professional and made me feel at ease during the entire procedure.' },
+  { 'date': new Date('3 Jan, 2021'), 'reviewer': 'James Walker', 'dentist': 'Dr. Bob Martin', "rating": 4, 'review': 'The cleaning was thorough and painless — I’ll definitely return.' },
+  { 'date': new Date('14 Feb, 2022'), 'reviewer': 'Sophia Patel', 'dentist': 'Dr. Bob Martin', "rating": 5, 'review': 'Explained everything clearly before starting, which I appreciated.' },
+  { 'date': new Date('28 Mar, 2023'), 'reviewer': 'Liam Thompson', 'dentist': 'Dr. Bob Martin', "rating": 3, 'review': 'The office was clean and organized, but the wait time was a bit long.' },
+  { 'date': new Date('7 Apr, 2020'), 'reviewer': 'Ava Rodriguez', 'dentist': 'Dr. Bob Martin', "rating": 5, 'review': 'Made me feel comfortable despite my usual anxiety at the dentist.' },
+  { 'date': new Date('19 May, 2022'), 'reviewer': 'Ethan Lewis', 'dentist': 'Dr. Samantha Ellis', "rating": 4, 'review': 'Friendly and efficient — in and out with minimal fuss.' },
+  { 'date': new Date('23 Jun, 2023'), 'reviewer': 'Isabella Moore', 'dentist': 'Dr. Samantha Ellis', "rating": 5, 'review': 'Great attention to detail and gentle technique.' },
+  { 'date': new Date('10 Jul, 2021'), 'reviewer': 'Noah Bennett', 'dentist': 'Dr. Samantha Ellis', "rating": 5, 'review': 'Procedure went smoothly, and I felt no discomfort.' },
+  { 'date': new Date('17 Sep, 2022'), 'reviewer': '	Mia Anderson', 'dentist': 'Dr. Samantha Ellis', "rating": 4, 'review': 'I appreciated the follow-up instructions after the treatment.' },
+  { 'date': new Date('30 Oct, 2023'), 'reviewer': 'Lucas Carter', 'dentist': 'Dr. Samantha Ellis', "rating": 4, 'review': 'Very quick but didn’t feel rushed — good balance.' },
+  { 'date': new Date('11 Nov, 2021'), 'reviewer': 'Emma Nguyen', 'dentist': 'Dr. Marcus Patel', "rating": 4, 'review': 'Excellent service but hard to get an appointment.' },
+  { 'date': new Date('25 Dec, 2022'), 'reviewer': 'Mason Scott', 'dentist': 'Dr. Marcus Patel', "rating": 4, 'review': 'Staff was polite, and the exam felt thorough.' },
+  { 'date': new Date('8 Jan, 2020'), 'reviewer': 'Harper King', 'dentist': 'Dr. Marcus Patel', "rating": 2, 'review': 'Seemed rushed and didn’t ask about my discomfort.' },
+  { 'date': new Date('21 Feb, 2021'), 'reviewer': 'Logan Rivera', 'dentist': 'Dr. Marcus Patel', "rating": 3, 'review': 'Did a decent job but could have been more communicative.' },
+  { 'date': new Date('12 Mar, 2023'), 'reviewer': '	Elijah Brooks', 'dentist': 'Dr. Marcus Patel', "rating": 5, 'review': 'Explained all my options and didn’t pressure me into anything.' },
+  { 'date': new Date('4 Apr, 2022'), 'reviewer': 'Lily Evans', 'dentist': 'Dr. Jenna Lin', "rating": 4, 'review': 'Efficient and friendly — great overall experience.' },
+  { 'date': new Date('16 May, 2020'), 'reviewer': 'Benjamin Flores', 'dentist': 'Dr. Jenna Lin', "rating": 5, 'review': 'Answered all of my questions with patience.' },
+  { 'date': new Date('29 Jun, 2021'), 'reviewer': 'Chloe Ramirez', 'dentist': 'Dr. Jenna Lin', "rating": 3, 'review': 'Cleaning was rougher than expected, but results were good.' },
+  { 'date': new Date('6 Jul, 2022'), 'reviewer': 'Alexander Gray', 'dentist': 'Dr. Jenna Lin', "rating": 5, 'review': 'Gentle hands and a calm demeanor made a big difference.' },
+  { 'date': new Date('13 Aug, 2023'), 'reviewer': 'Grace Hughes', 'dentist': 'Dr. Jenna Lin', "rating": 2, 'review': 'Procedure was quick but felt impersonal.' },
+  { 'date': new Date('26 Sep, 2020'), 'reviewer': 'Jacob Torres', 'dentist': 'Dr. Robert Kim', "rating": 5, 'review': 'Very detailed and explained what was being done in real-time.' },
+  { 'date': new Date('9 Oct, 2022'), 'reviewer': 'Scarlett Diaz', 'dentist': 'Dr. Robert Kim', "rating": 2, 'review': 'The tools seemed outdated, but the care was solid.' },
+  { 'date': new Date('22 Nov, 2023'), 'reviewer': 'Michael Reed', 'dentist': 'Dr. Robert Kim', "rating": 5, 'review': 'Professional, respectful, and timely.' },
+  { 'date': new Date('2 Dec, 2020'), 'reviewer': 'Abigail Morgan', 'dentist': 'Dr. Robert Kim', "rating": 2, 'review': 'Felt more like a business than a healthcare experience.' },
+  { 'date': new Date('18 Jan, 2022'), 'reviewer': 'Henry Gonzalez', 'dentist': 'Dr. Robert Kim', "rating": 3, 'review': 'Waited too long, but the actual service was excellent.' },
+  { 'date': new Date('1 Feb, 2023'), 'reviewer': 'Ella Parker', 'dentist': 'Dr. Natalie Ruiz', "rating": 5, 'review': 'Very attentive to pain management and comfort.' },
+  { 'date': new Date('15 Mar, 2021'), 'reviewer': 'Daniel Cooper', 'dentist': 'Dr. Natalie Ruiz', "rating": 5, 'review': 'I left feeling reassured and well-informed.' },
+  { 'date': new Date('27 Apr, 2020'), 'reviewer': 'Zoe Adams', 'dentist': 'Dr. Natalie Ruiz', "rating": 2, 'review': 'The visit felt rushed and a bit chaotic.' },
+  { 'date': new Date('3 May, 2023'), 'reviewer': 'Matthew Jenkins', 'dentist': 'Dr. Natalie Ruiz', "rating": 5, 'review': 'Made me feel safe even with my dental phobia.' },
+  { 'date': new Date('20 Jun, 2022'), 'reviewer': 'Victoria Price', 'dentist': 'Dr. Natalie Ruiz', "rating": 4, 'review': 'Not the best communicator, but technically very skilled.' },
+  { 'date': new Date('7 Jul, 2020'), 'reviewer': 'Aiden Bailey', 'dentist': 'Dr. David Cohen', "rating": 5, 'review': 'The environment was friendly and non-judgmental.' },
+  { 'date': new Date('24 Aug, 2021'), 'reviewer': 'Natalie Barnes', 'dentist': 'Dr. David Cohen', "rating": 5, 'review': 'Offered good advice for long-term dental care.' },
+  { 'date': new Date('5 Sep, 2023'), 'reviewer': 'Samuel Ross', 'dentist': 'Dr. David Cohen', "rating": 3, 'review': 'Lacked warmth, but the results were satisfactory.' },
+  { 'date': new Date('14 Oct, 2021'), 'reviewer': 'Lillian White', 'dentist': 'Dr. David Cohen', "rating": 5, 'review': 'One of the most comfortable dental experiences I’ve had.' },
+  { 'date': new Date('31 Nov, 2020'), 'reviewer': 'Charlotte Hall', 'dentist': 'Dr. David Cohen', "rating": 1, 'review': 'Didn’t listen to my concerns about sensitivity.' },
+  { 'date': new Date('12 Dec, 2022'), 'reviewer': 'David Myers', 'dentist': 'Dr. Emily Brooks', "rating": 5, 'review': 'Followed up promptly after my procedure — nice touch.' },
+  { 'date': new Date('6 Jan, 2023'), 'reviewer': 'Amelia Perry', 'dentist': 'Dr. Emily Brooks', "rating": 4, 'review': 'Highly efficient but didn’t seem very interested in conversation.' },
+  { 'date': new Date('19 Feb, 2020'), 'reviewer': 'Carter Powell', 'dentist': 'Dr. Emily Brooks', "rating": 5, 'review': 'Really took the time to explain x-rays and next steps.' },
+  { 'date': new Date('28 Mar, 2022'), 'reviewer': 'Avery Foster', 'dentist': 'Dr. Emily Brooks', "rating": 4, 'review': 'The care was great, but the billing process was confusing.' },
+  { 'date': new Date('9 Apr, 2021'), 'reviewer': 'Wyatt Coleman', 'dentist': 'Dr. Emily Brooks', "rating": 5, 'review': 'Made me feel like a priority, not just another patient.' },
+  { 'date': new Date('23 May, 2020'), 'reviewer': 'Riley Jenkins', 'dentist': 'Dr. Jason Nguyen', "rating": 4, 'review': 'Technique was good, but bedside manner could improve.' },
+  { 'date': new Date('11 Jun, 2021'), 'reviewer': 'Sebastian Ford', 'dentist': 'Dr. Jason Nguyen', "rating": 5, 'review': 'Efficient and respectful throughout the appointment.' },
+  { 'date': new Date('2 Jul, 2023'), 'reviewer': 'Hannah Bell', 'dentist': 'Dr. Jason Nguyen', "rating": 5, 'review': 'Took time to ask about my medical history and concerns' },
+  { 'date': new Date('17 Aug, 2022'), 'reviewer': 'Leo Murphy', 'dentist': 'Dr. Jason Nguyen', "rating": 4, 'review': 'Slightly painful procedure, but it was handled well.' },
+  { 'date': new Date('30 Sep, 2021'), 'reviewer': 'Madison Stone', 'dentist': 'Dr. Jason Nguyen', "rating": 5, 'review': 'Excellent chair-side manner and attention to detail.' },
+  { 'date': new Date('8 Oct, 2020'), 'reviewer': 'Jack Simmons', 'dentist': 'Dr. Isabella Monroe', "rating": 5, 'review': 'Provided options and didn’t rush my decision-making.' },
+  { 'date': new Date('21 Nov, 2022'), 'reviewer': 'Layla Russell', 'dentist': 'Dr. Isabella Monroe', "rating": 5, 'review': 'Very knowledgeable and confident, which helped me relax.' },
+  { 'date': new Date('4 Dec, 2021'), 'reviewer': 'Julian Bryant', 'dentist': 'Dr. Isabella Monroe', "rating": 4, 'review': 'Seemed a little distracted, but still delivered good results.' },
+  { 'date': new Date('13 Jan, 2021'), 'reviewer': 'Nora Hayes', 'dentist': 'Dr. Isabella Monroe', "rating": 4, 'review': 'Explained the procedure well but felt a bit cold.' },
+  { 'date': new Date('26 Feb, 2023'), 'reviewer': 'Mila Patterson', 'dentist': 'Dr. Isabella Monroe', "rating": 5, 'review': 'Helped calm my nerves with humor and reassurance.' },
+  { 'date': new Date('7 Mar, 2020'), 'reviewer': 'Owen Chavez', 'dentist': 'Dr. Kevin Zhang', "rating": 5, 'review': 'I was nervous but quickly felt comfortable.' },
+  { 'date': new Date('18 Apr, 2023'), 'reviewer': 'Eleanor Bishop', 'dentist': 'Dr. Kevin Zhang', "rating": 5, 'review': 'The environment felt modern and very welcoming.' },
+  { 'date': new Date('1 May, 2022'), 'reviewer': 'Isaiah Craig', 'dentist': 'Dr. Kevin Zhang', "rating": 2, 'review': 'Lacked empathy during a painful moment.' },
+  { 'date': new Date('20 Jun, 2020'), 'reviewer': 'Addison Kim', 'dentist': 'Dr. Kevin Zhang', "rating": 4, 'review': 'Good experience overall, though the wait time was long.' },
+  { 'date': new Date('6 Jul, 2021'), 'reviewer': 'Gabriel Sanders', 'dentist': 'Dr. Kevin Zhang', "rating": 5, 'review': 'Gentle, fast, and explained everything clearly.' },
+  { 'date': new Date('15 Aug, 2020'), 'reviewer': 'Audrey Doyle', 'dentist': 'Dr. Alisha Thompson', "rating": 5, 'review': 'Didn’t feel rushed at all, which I appreciated.' },
+  { 'date': new Date('27 Sep, 2022'), 'reviewer': 'Caleb Warren', 'dentist': 'Dr. Alisha Thompson', "rating": 3, 'review': 'The assistant was great, but the dentist seemed impatient.' },
+  { 'date': new Date('3 Oct, 2021'), 'reviewer': 'Leah Fox', 'dentist': 'Dr. Alisha Thompson', "rating": 5, 'review': 'Went above and beyond to make me feel at ease.' },
+  { 'date': new Date('24 Nov, 2020'), 'reviewer': 'Dylan Stephens', 'dentist': 'Dr. Alisha Thompson', "rating": 3, 'review': 'Professional service, but not very friendly.' },
+  { 'date': new Date('10 Dec, 2023'), 'reviewer': 'Penelope Day', 'dentist': 'Dr. Alisha Thompson', "rating": 5, 'review': 'Felt like I was in good hands the entire time.' },
+  { 'date': new Date('5 Jan, 2022'), 'reviewer': 'Nathan Lane', 'dentist': 'Dr. Michael Grant', "rating": 3, 'review': 'Didn’t explain aftercare very well.' },
+  { 'date': new Date('16 Feb, 2021'), 'reviewer': 'Camila Franklin', 'dentist': 'Dr. Michael Grant', "rating": 5, 'review': 'Clean environment and clear communication.' },
+  { 'date': new Date('29 Mar, 2020'), 'reviewer': 'Asher Freeman', 'dentist': 'Dr. Michael Grant', "rating": 5, 'review': 'The whole process was smoother than I expected.' },
+  { 'date': new Date('8 Apr, 2022'), 'reviewer': 'Ellie Warner', 'dentist': 'Dr. Michael Grant', "rating": 5, 'review': 'I left with more knowledge about my dental health.' },
+  { 'date': new Date('22 May, 2021'), 'reviewer': 'Aaron Wells', 'dentist': 'Dr. Michael Grant', "rating": 3, 'review': 'The anesthesia wasn’t quite enough — a bit painful.' },
+  { 'date': new Date('30 Jun, 2023'), 'reviewer': 'Savannah Austin', 'dentist': 'Dr. Chloe Rivera', "rating": 4, 'review': 'Would have liked a little more explanation during the procedure.' },
+  { 'date': new Date('9 Jul, 2020'), 'reviewer': 'Jeremiah Lowe', 'dentist': 'Dr. Chloe Rivera', "rating": 3, 'review': 'Great for routine cleanings but not as reassuring during major work.' },
+  { 'date': new Date('19 Aug, 2021'), 'reviewer': 'Skylar Hardy', 'dentist': 'Dr. Chloe Rivera', "rating": 5, 'review': 'The hygienist was excellent, but the dentist didn’t say much.' },
+  { 'date': new Date('1 Sep, 2020'), 'reviewer': 'Lincoln Holt', 'dentist': 'Dr. Chloe Rivera', "rating": 5, 'review': 'Fast, friendly, and efficient.' },
+  { 'date': new Date('14 Oct, 2023'), 'reviewer': 'Brooklyn Blair', 'dentist': 'Dr. Chloe Rivera', "rating": 5, 'review': 'I was treated respectfully and with care.' },
+  { 'date': new Date('25 Nov, 2021'), 'reviewer': 'Christian Cross', 'dentist': 'Dr. Ethan Wallace', "rating": 4, 'review': 'Could use a more compassionate approach with anxious patients.' },
+  { 'date': new Date('11 Dec, 2020'), 'reviewer': 'Zoey Paul', 'dentist': 'Dr. Ethan Wallace', "rating": 5, 'review': 'Extremely knowledgeable and offered helpful prevention tips.' },
+  { 'date': new Date('4 Jan, 2023'), 'reviewer': 'Nolan Spencer', 'dentist': 'Dr. Ethan Wallace', "rating": 5, 'review': 'Made me feel heard when I described my symptoms.' },
+  { 'date': new Date('17 Feb, 2022'), 'reviewer': 'Bella Lloyd', 'dentist': 'Dr. Ethan Wallace', "rating": 5, 'review': 'The x-ray experience was quick and painless.' },
+  { 'date': new Date('6 Mar, 2021'), 'reviewer': 'Grayson Neal', 'dentist': 'Dr. Ethan Wallace', "rating": 1, 'review': 'Didn’t seem to believe me about my pain level.' },
+  { 'date': new Date('28 Apr, 2020'), 'reviewer': 'Claire Hopkins', 'dentist': 'Dr. Priya Desai', "rating": 5, 'review': 'Friendly from start to finish — smooth visit.' },
+  { 'date': new Date('13 May, 2022'), 'reviewer': 'Ezra Boyd', 'dentist': 'Dr. Priya Desai', "rating": 5, 'review': 'I appreciated the gentle touch and constant checking in.' },
+  { 'date': new Date('24 Jun, 2023'), 'reviewer': 'Peyton Barker', 'dentist': 'Dr. Priya Desai', "rating": 4, 'review': 'Good care, but the office was a bit disorganized' },
+  { 'date': new Date('2 Jul, 2021'), 'reviewer': 'Stella Dean', 'dentist': 'Dr. Priya Desai', "rating": 5, 'review': 'Very responsive to my needs throughout the visit.' },
+  { 'date': new Date('18 Aug, 2020'), 'reviewer': 'Dianne Russell', 'dentist': 'Dr. Priya Desai', "rating": 5, 'review': 'Quick checkup, no issues — I’ll be back.' },
 ]);

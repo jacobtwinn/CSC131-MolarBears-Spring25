@@ -2,9 +2,11 @@ import express from "express";
 import { getDb, connectToServer } from "../config/db.js";
 import { ObjectId } from 'mongodb';
 
+
 let financialHistoryRoute = express.Router();
 
 financialHistoryRoute.get('/FinancialHistory', async (req, res) => {
+  await connectToServer();
   let db = getDb();
   const page = parseInt(req.query.page) || 1;
   const limit = 10; // Items per page

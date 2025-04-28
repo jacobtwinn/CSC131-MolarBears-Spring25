@@ -1,5 +1,13 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "stripe": "^18.0.0"
+=======
+    "@chakra-ui/icons": "^2.0.18",
+    "@chakra-ui/react": "^2.7.1",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "framer-motion": "^10.12.16"
+>>>>>>> b2295ff50fa084f21e2cc7edd85fea945a7ef766
   }
 }

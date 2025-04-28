@@ -1,10 +1,42 @@
-.account-details-container {
+/* UserInfo.css */
+  .account-details-container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
   }
   
+  .small-profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ccc;
+    margin-bottom: 8px;
+  }
+  
+  .change-photo-btn {
+    background-color: #3182ce;
+    color: white;
+    padding: 6px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 12px;
+  }
+  
+  .change-photo-btn:hover {
+    background-color: #2b6cb0;
+  }
+  
+  .account-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 8px;
+  }
+
   .account-section {
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -108,3 +140,30 @@
     text-align: center;
     font-weight: bold;
   }
+  .header-with-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .input-group input[type="password"] {
+    font-family: sans-serif;
+    letter-spacing: 2px;
+  }
+
+  .delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    margin-left: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 0.85rem;
+  }
+  
+  .delete-btn:hover {
+    background-color: #d32f2f;
+  }
+  

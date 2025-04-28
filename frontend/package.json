@@ -11,18 +11,39 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chakra-ui/react": "^3.14.2",
+    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/react": "^2.10.7",
     "@emotion/react": "^11.14.0",
+<<<<<<< HEAD
     "@stripe/react-stripe-js": "^3.6.0",
     "@stripe/stripe-js": "^7.2.0",
     "axios": "^1.8.4",
     "dotenv": "^16.5.0",
+=======
+    "@emotion/styled": "^11.14.0",
+    "@google-cloud/local-auth": "^2.1.0",
+    "axios": "^1.8.4",
+    "framer-motion": "^12.7.4",
+    "date-fns": "^4.1.0",
+    "framer-motion": "^12.6.5",
+    "gapi-script": "^1.2.0",
+    "googleapis": "^105.0.0",
+>>>>>>> b2295ff50fa084f21e2cc7edd85fea945a7ef766
     "next-themes": "^0.4.6",
+    "nodemailer": "^6.10.1",
+    "prettier": "^3.5.3",
     "react": "^19.1.0",
+    "react-calendar": "^5.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.4.0",
+<<<<<<< HEAD
     "stripe": "^18.0.0"
+=======
+    "react-router-hash-link": "^2.4.3",
+    "react-router-dom": "^7.4.0",
+    "react-time-picker": "^7.0.0"
+>>>>>>> b2295ff50fa084f21e2cc7edd85fea945a7ef766
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -34,6 +55,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "nodemon": "^3.1.9",
     "vite": "^6.2.0",
     "vite-tsconfig-paths": "^5.1.4"
   }

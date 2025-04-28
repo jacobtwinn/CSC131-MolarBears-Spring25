@@ -3,7 +3,13 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
-import detect from "detect-port"; // Import detect-port
+import resetRoutes from "./routes/resetPassword.js";
+import Appointment from "./routes/appointments.js";
+import detect from "detect-port";
+import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
+import ReviewRoutes from './routes/ReviewRoutes.js';
+import financialHistoryRoute from './routes/financialHistoryRoute.js';
+
 import { paymentRoutes } from './routes/paymentRoutes.js';
 
 dotenv.config();
@@ -25,6 +31,17 @@ mongoose
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api", VisitHistoryRoutes);
+app.use("/api", ReviewRoutes);
+app.use("/api", financialHistoryRoute);
+app.use("/api/appointments", Appointment);
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+app.use("/api/reset", resetRoutes);
 app.use("/api/payments", paymentRoutes);
 
 // Detect an available port
