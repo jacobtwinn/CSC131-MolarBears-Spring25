@@ -4,14 +4,18 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import detect from "detect-port"; // Import detect-port
+import { paymentRoutes } from './routes/paymentRoutes.js';
 
-dotenv.config({ path: "../.env" });
+dotenv.config();
+
+console.log("Stripe Secret Key:", process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+
 
 // Connect to MongoDB
 mongoose
@@ -21,6 +25,7 @@ mongoose
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/payments", paymentRoutes);
 
 // Detect an available port
 const DEFAULT_PORT = process.env.PORT || 5001;
