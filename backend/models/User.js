@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, default: false },
   resetPasswordToken: { type: String, default: "" },
   resetPasswordExpires: { type: Date, default: 0 },
+  profilePicture: { type: String, default: "" },
 });
 
 UserSchema.pre("save", function (next) {
