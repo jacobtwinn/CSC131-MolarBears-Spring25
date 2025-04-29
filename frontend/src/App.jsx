@@ -19,6 +19,11 @@ import ResetPassword from "./pages/ResetPassword";
 import { isTokenValid } from "./utils/authUtils";
 import { useAuth } from "./context/AuthContext";
 import DentalAppointments from "./pages/Appointment";
+import Reviews from "./pages/Reviews";
+import FAQ from "./pages/FAQ";
+import AppointmentGuidelines from "./pages/AppointmentGuidelines";
+import InsurancePaymentPlans from "./pages/InsurancePaymentPlans";
+
 
 function App() {
   const { isLoggedIn, setIsLoggedIn } = useAuth();
@@ -45,6 +50,12 @@ function App() {
         <Route path="/visit-history" element={<VisitsPage />} />
         <Route path="/financial-history" element={<FinancialHist />} />
         <Route path="/appointments" element={<DentalAppointments />} />
+        <Route path="/reviews" element={<Reviews />} />
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/appt-guidelines" element={<AppointmentGuidelines />} />
+        <Route path="/payment-info" element={<InsurancePaymentPlans />} />
+
+
         {/* Protected Routes */}
         <Route
           path="/home"

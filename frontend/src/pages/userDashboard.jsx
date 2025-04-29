@@ -98,18 +98,18 @@ const UserDashboard = () => {
             </Button>
           </GridItem>
           <GridItem>
-            <Button as={Link} to="/dental-records" w="100%" bg="blue.200">
-              Dental Records
+            <Button as={Link} to="/visit-history" w="100%" bg="blue.200">
+              Visit History
             </Button>
           </GridItem>
           <GridItem>
-            <Button as={Link} to="/providers" w="100%" bg="blue.200">
-              View Providers
+            <Button as={Link} to="/reviews" w="100%" bg="blue.200">
+              Provider Reviews
             </Button>
           </GridItem>
           <GridItem>
             <Button as={Link} to="/financial-history" w="100%" bg="blue.100">
-              Financials
+              Financial History
             </Button>
           </GridItem>
         </Grid>
