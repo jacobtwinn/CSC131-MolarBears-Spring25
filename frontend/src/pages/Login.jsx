@@ -34,10 +34,12 @@ const Login = () => {
       console.log("JWT Token:", token);
       setIsLoggedIn(true);
       
-      // ✅ Call refreshUserInfo here instead of reloading:
+      // Call refreshUserInfo here instead of reloading:
       refreshUserInfo();
+
+      console.log("Logged in user role:", response.data.role); // optional
       
-      navigate("/home"); // or wherever you want to send them
+      navigate("/home"); 
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");
     }
