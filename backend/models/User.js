@@ -8,7 +8,11 @@ const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true, lowercase: true },
   gender: { type: String, required: true },
   dob: { type: Date, required: true },
-  isAdmin: { type: Boolean, default: false },
+  role: { 
+    type: String,
+    enum: ["patient", "employee", "admin"],
+    default: "patient"
+  },
   resetPasswordToken: { type: String, default: "" },
   resetPasswordExpires: { type: Date, default: 0 },
   profilePicture: { type: String, default: "" },
@@ -20,8 +24,6 @@ UserSchema.pre("save", function (next) {
   }
   next();
 });
-  
-// Check if the model already exists before defining it
-const User = mongoose.models.User || mongoose.model("User", UserSchema);
 
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 export default User;

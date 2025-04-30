@@ -70,10 +70,16 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    // Generate JWT
-    const token = jwt.sign({ username: user.username }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    // Generate JWT with role
+  const token = jwt.sign(
+    { username: user.username, role: user.role },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+  );
 
-    res.json({ token });
+  // Return token + role
+  res.json({ token, role: user.role });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -96,7 +102,8 @@ router.get("/users/me", async (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      profilePicture: user.profilePicture || null, // Add this if you support profile pictures
+      role: user.role,
+      profilePicture: user.profilePicture || null,
     });
   } catch (err) {
     console.error("Token verification failed:", err);
