@@ -17,7 +17,6 @@
     "@emotion/styled": "^11.14.0",
     "@google-cloud/local-auth": "^2.1.0",
     "axios": "^1.8.4",
-    "framer-motion": "^12.7.4",
     "date-fns": "^4.1.0",
     "framer-motion": "^12.6.5",
     "gapi-script": "^1.2.0",
