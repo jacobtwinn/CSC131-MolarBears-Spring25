@@ -93,7 +93,7 @@ const UserDashboard = () => {
         {/* Quick Actions */}
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem>
-            <Button as={Link} to="/appointments" w="100%" bg="blue.100">
+            <Button as={Link} to="/dental-appointments" w="100%" bg="blue.100">
               Book an Appointment
             </Button>
           </GridItem>
