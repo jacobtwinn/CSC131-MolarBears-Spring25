@@ -1,7 +1,16 @@
 import mongoose from 'mongoose';
 
 const AppointmentSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   name: {
+    type: String,
+    required: true,
+  },
+  email: {
     type: String,
     required: true,
   },
@@ -10,8 +19,20 @@ const AppointmentSchema = new mongoose.Schema({
     required: true,
   },
   date: {
+    type: Date, // Store as actual Date object
+    required: true,
+  },
+  status: {
     type: String,
-    required: true, // e.g., '2025-04-23'
+    enum: ["booked", "cancelled", "rescheduled"],
+    default: "booked",
+  },
+  reason: {
+    type: String,
+    default: "General appointment",
+  },
+  provider: {
+    type: String,
   },
 }, { timestamps: true });
 
