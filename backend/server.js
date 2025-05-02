@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth.js";
 import detect from "detect-port"; // Import detect-port
 import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
 import ReviewRoutes from './routes/ReviewRoutes.js';
+import EmployeeRoutes from './routes/EmployeeRoutes.js';
 
 dotenv.config({ path: "../.env" });
 
@@ -25,6 +26,7 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api", VisitHistoryRoutes);
 app.use("/api", ReviewRoutes);
+app.use("/api", EmployeeRoutes);
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
