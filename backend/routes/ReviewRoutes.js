@@ -64,10 +64,14 @@ ReviewRoutes.route("/Reviews/:id").put(async (req, res) => {
 })
 
 // Delete One
-ReviewRoutes.route("/Reviews/:id").delete(async (req, res) => {
-    let db = getDb() // Get the database instance
-    let data = await db.collection("Reviews").deleteOne({_id: new ObjectId(req.params.id)})
-    res.json(data)
-})
+ReviewRoutes.delete("/Reviews/:id", async (req, res) => {
+    try {
+      const deleted = await Review.findByIdAndDelete(req.params.id);
+      if (!deleted) return res.status(404).json({ error: "Review not found" });
+      res.status(200).json({ message: "Review deleted successfully" });
+    } catch (err) {
+      res.status(500).json({ error: "Failed to delete review" });
+    }
+  });
 
 export default ReviewRoutes;

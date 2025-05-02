@@ -7,6 +7,7 @@ import resetRoutes from "./routes/resetPassword.js";
 import detect from "detect-port";
 import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
 import ReviewRoutes from './routes/ReviewRoutes.js';
+import EmployeeRoutes from './routes/EmployeeRoutes.js';
 import financialHistoryRoute from './routes/financialHistoryRoute.js';
 
 
@@ -28,6 +29,7 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api", VisitHistoryRoutes);
 app.use("/api", ReviewRoutes);
+app.use("/api", EmployeeRoutes);
 app.use("/api", financialHistoryRoute);
 app.get("/", (req, res) => {
   res.send("API is running...");

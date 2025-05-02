@@ -10,6 +10,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VisitsPage from "./pages/VisitHist";
 import FinancialHist from "./pages/FinancialHist";
+import EmploymentStatus from "./pages/EmploymentStatus";
+import Reviews from "./pages/Reviews";
 import Footer from "./components/ui/Footer";
 import UserDashboard from "./pages/UserDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -41,8 +43,10 @@ function App() {
         <Route path="/user-info" element={<UserInfo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="/visit-history" element={<VisitsPage />} />
         <Route path="/financial-history" element={<FinancialHist />} />
+        <Route path="/employment-status" element={<EmploymentStatus />} />
         <Route
           path="/home"
           element={
