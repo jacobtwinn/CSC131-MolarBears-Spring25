@@ -30,7 +30,8 @@ import NotificationPage from "./pages/NotificationPage";
 import { isTokenValid } from "./utils/authUtils";
 import { useAuth } from "./context/AuthContext";
 import AdminPayroll from "./pages/AdminPayroll";
-
+import Checkout from "./pages/Checkout";
+import PaymentSuccess from "./pages/PaymentSuccess";
 
 function App() {
   const { isLoggedIn, setIsLoggedIn, userInfo } = useAuth();
@@ -87,6 +88,8 @@ function App() {
         <Route path="/payment-info" element={<InsurancePaymentPlans />} />
         <Route path="/notifications" element={<NotificationPage />} />
         <Route path= "/admin-payroll" element={<AdminPayroll />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/payment-success" element={<PaymentSuccess />} />
 
         {/* Role-Based Routes */}
         <Route

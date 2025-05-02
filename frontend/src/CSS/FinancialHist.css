@@ -62,6 +62,16 @@
     color: #D32F2F;
     font-weight: bold;
   }
+
+  .stripe-checkout-container {
+    background-color: #5BA3BB;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    color: white;
+    text-align: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
   
   .pay-now-btn {
     background-color: #4CAF50;

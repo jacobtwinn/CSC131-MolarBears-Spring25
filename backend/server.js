@@ -15,7 +15,8 @@ import uploadProfilePictureRouter from './routes/uploadProfilePicture.js';
 import notificationRoute from './routes/notifications.js';
 import path from "path";
 import { fileURLToPath } from "url";
-import payrollRoutes from './routes/payrollRoutes.js'; // Import the payroll routes
+import payrollRoutes from './routes/payrollRoutes.js';
+import { paymentRoutes } from "./routes/paymentRoutes.js";
 
 
 dotenv.config({ path: "../.env" });
@@ -47,6 +48,7 @@ app.use("/api/reset", resetRoutes);
 app.use("/api/profile", uploadProfilePictureRouter); 
 app.use("/api/employees", payrollRoutes);
 app.use("/api/notifications", notificationRoute);
+app.use("/api", paymentRoutes);
 
 
 // Homepage

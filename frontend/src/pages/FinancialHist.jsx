@@ -2,6 +2,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "/src/CSS/FinancialHist.css";
+import { Elements } from "@stripe/react-stripe-js";
+import { stripePromise } from "../stripe";
+import CheckoutForm from "../components/ui/CheckoutForm";
+import Checkout from "./Checkout";
 
 const FinancialPage = () => {
   console.log("Rendering FinancialPage"); // Debugging log
@@ -13,7 +17,7 @@ const FinancialPage = () => {
   const [showSortMenu, setShowSortMenu] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
   const [totalBalanceDue, setTotalBalanceDue] = useState(0);
-
+  
   const [sortCriteria, setSortCriteria] = useState({
     field: 'date',
     order: 'desc'
@@ -95,8 +99,23 @@ const FinancialPage = () => {
   window.open(downloadUrl, "_blank");
   };
 
-  const handlePayNow = () => {
-    console.log("Processing payment");
+  const handlePayNow = async () => {
+    try {
+      const response = await fetch("http://localhost:5001/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount: totalBalanceDue * 100 }), // convert dollars to cents
+      });
+  
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url; // redirect to Stripe checkout
+      }
+    } catch (error) {
+      console.error("Payment initiation failed:", error);
+    }
   };
 
   // Conditional rendering logic after all Hooks
