@@ -11,10 +11,10 @@ const Reviews = () => {
   const [showProviderMenu, setShowProviderMenu] = useState(false);
   const [selectedDentist, setSelectedDentist] = useState("None");
   const [showReviewForm, setShowReviewForm] = useState(false);
-  const [newReview, setNewReview] = useState({
-    rating: 5,
-    review: "",
-  });
+  const [reviewSuccess, setReviewSuccess] = useState(false);
+  const [user, setUser] = useState({ firstName: "", lastName: "" });
+  const [newReview, setNewReview] = useState({ rating: 5, review: "" });
+
   const toggleReviewForm = () => {
     setShowReviewForm(prev => !prev);
   };
@@ -27,13 +27,13 @@ const Reviews = () => {
 
         if (response.data && Array.isArray(response.data.reviews)) {
           const formatted = response.data.reviews.map((item) => ({
-          ...item,
-          date: item.date ? new Date(item.date).toISOString().slice(0, 10) : "1970-01-01",
-          reviewer: item.reviewer || "Reviewer",
-          dentist: item.dentist || "Unknown Dentist",
-          rating: typeof item.rating === "number" ? item.rating : 0,
-          review: item.review || "Review",
-        }));
+            ...item,
+            date: item.date ? new Date(item.date).toISOString().slice(0, 10) : "1970-01-01",
+            reviewer: item.reviewer || "Reviewer",
+            dentist: item.dentist || "Unknown Dentist",
+            rating: typeof item.rating === "number" ? item.rating : 0,
+            review: item.review || "Review",
+          }));
           setReviewData(formatted);
           setError(null);
         } else {
@@ -48,10 +48,46 @@ const Reviews = () => {
       }
     };
 
+    const fetchUserInfo = async () => {
+      try {
+        const response = await axios.get("http://localhost:5001/api/UserInfo");
+        if (response.data) {
+          setUser({
+            firstName: response.data.firstName || "First",
+            lastName: response.data.lastName || "Last",
+          });
+        }
+      } catch (err) {
+        console.error("Failed to fetch user info", err);
+      }
+    };
+
     fetchReviewData();
+    fetchUserInfo();
   }, []);
 
-  // Extract unique dentist names from the data
+  const submitReview = async () => {
+    const fullName = `${user.firstName} ${user.lastName}`;
+    const reviewToSubmit = {
+      reviewer: fullName,
+      dentist: selectedDentist,
+      rating: newReview.rating,
+      review: newReview.review,
+      date: new Date().toISOString().slice(0, 10),
+    };
+
+    try {
+      await axios.post("http://localhost:5001/api/Reviews", reviewToSubmit);
+      setReviewData((prevData) => [reviewToSubmit, ...prevData]);
+      setShowReviewForm(false);
+      setNewReview({ rating: 5, review: "" });
+      setReviewSuccess(true);
+      setTimeout(() => setReviewSuccess(false), 3000);
+    } catch (error) {
+      console.error("Error submitting review", error);
+    }
+  };
+
   const uniqueDentists = [...new Set(reviewData.map((r) => r.dentist))];
 
   const handleDentistSelect = (name) => {
@@ -61,7 +97,8 @@ const Reviews = () => {
 
   const renderProviderDropdown = () => (
     <div className="provider-menu-container">
-      <button className="provider-button" 
+      <button
+        className="provider-button"
         onClick={() => setShowProviderMenu((prev) => !prev)}
       >
         {selectedDentist} ⏷
@@ -89,16 +126,9 @@ const Reviews = () => {
     ) {
       return null;
     }
-  
+
     return (
-      <Box
-        maxW="600px"
-        mx="auto"
-        mt={4}
-        p={4}
-        bg="gray.100"
-        borderRadius="md"
-      >
+      <Box maxW="600px" mx="auto" mt={4} p={4} bg="gray.100" borderRadius="md">
         <label>
           Rating:
           <select
@@ -112,9 +142,9 @@ const Reviews = () => {
             ))}
           </select>
         </label>
-  
+
         <br />
-  
+
         <textarea
           rows="4"
           placeholder="Write your review..."
@@ -124,20 +154,13 @@ const Reviews = () => {
           }
           style={{ width: "100%", marginTop: "0.5rem" }}
         />
-  
+
         <br />
-  
-        <button
-          onClick={() => {
-            console.log("Submitting review for", selectedDentist, newReview);
-            setShowReviewForm(false);
-            setNewReview({ rating: 5, review: "" });
-          }}
-          className="review-submit-button"
-        >
+
+        <button onClick={submitReview} className="review-submit-button">
           Submit Review
         </button>
-  
+
         <button
           onClick={() => setShowReviewForm(false)}
           className="review-cancel-button"
@@ -148,9 +171,16 @@ const Reviews = () => {
       </Box>
     );
   };
-  
 
-  // Filtered reviews based on selected dentists
+  const handleDeleteReview = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5001/api/Reviews/${id}`);
+      setReviewData((prev) => prev.filter((review) => review._id !== id));
+    } catch (error) {
+      console.error("Failed to delete review:", error);
+    }
+  };
+
   const filteredReviews =
     selectedDentist === "All Provider Reviews"
       ? reviewData
@@ -159,7 +189,15 @@ const Reviews = () => {
   return (
     <div className="flex-layout">
       <div className="flex-grow">
-        <Box bg="blue.400" p={4} borderRadius="md" boxShadow="md" maxW="420px" mx="auto" my={6}>
+        <Box
+          bg="blue.400"
+          p={4}
+          borderRadius="md"
+          boxShadow="md"
+          maxW="420px"
+          mx="auto"
+          my={6}
+        >
           <Flex align="center" justify="space-between">
             <Text color="black" fontWeight="bold">
               Choose Provider:
@@ -167,12 +205,32 @@ const Reviews = () => {
             <div>{renderProviderDropdown()}</div>
           </Flex>
         </Box>
+
         <Text color="white" textAlign="center" fontWeight="bold">
           {selectedDentist === "All Provider Reviews"
             ? "All Reviews"
             : `Reviews for ${selectedDentist}`}
         </Text>
-        {selectedDentist !== "All Provider Reviews" && selectedDentist !== "None" && !showReviewForm && (
+
+        {reviewSuccess && (
+          <Box
+            bg="green.400"
+            color="white"
+            textAlign="center"
+            p={2}
+            borderRadius="md"
+            maxW="400px"
+            mx="auto"
+            my={4}
+            fontWeight="bold"
+          >
+            ✅ Review submitted successfully!
+          </Box>
+        )}
+
+        {selectedDentist !== "All Provider Reviews" &&
+        selectedDentist !== "None" &&
+        !showReviewForm && (
           <Box textAlign="center" mb={4}>
             <button
               onClick={toggleReviewForm}
@@ -182,16 +240,20 @@ const Reviews = () => {
             </button>
           </Box>
         )}
+
         {renderReviewForm()}
         <br />
+
         {isLoading ? (
           <p>Loading reviews...</p>
         ) : error ? (
-        <p>{error}</p>
+          <p>{error}</p>
         ) : (
-          <ScrollBoxes 
-          reviewData={filteredReviews} 
-          selectedDentist={selectedDentist}
+          <ScrollBoxes
+            reviewData={filteredReviews}
+            selectedDentist={selectedDentist}
+            user={user}
+            onDelete={handleDeleteReview}
           />
         )}
       </div>

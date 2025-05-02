@@ -8,6 +8,6 @@ const employeeSchema = new mongoose.Schema({
   sickPay: { type: Number, default: 0 },
 });
 
-const Employee = mongoose.model("Employee", employeeSchema);
+const Payroll = mongoose.model("employees", employeeSchema);
 
-export default Employee;
+export default Payroll;
