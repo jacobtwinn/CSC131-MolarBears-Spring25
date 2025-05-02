@@ -5,6 +5,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "framer-motion": "^10.18.0",
+    "pdf-lib": "^1.17.1",
     "nodemailer": "^6.10.1"
   }
 }
