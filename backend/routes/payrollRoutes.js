@@ -1,5 +1,5 @@
 import express from "express";
-import Employee from "../models/Employee.js";
+import Payroll from "../models/Payroll.js";
 
 const router = express.Router();
 
@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     console.log("GET /employees route hit");
-    const employees = await Employee.find();
+    const employees = await Payroll.find();
     res.json(employees);
   } catch (error) {
     console.error("Error fetching employees:", error);
