@@ -94,8 +94,9 @@ const VisitsPage = () => {
     }
   };
 
-  const handleDownload = (invoiceId) => {
-    console.log(`Downloading invoice ${invoiceId}`);
+  const handleDownload = (visitId) => {
+    const downloadUrl = `http://localhost:5002/api/VisitHistory/${visitId}/download`;
+    window.open(downloadUrl, "_blank");
   };
 
   // Conditional rendering logic after all Hooks
@@ -134,7 +135,7 @@ const VisitsPage = () => {
             <th className="patient-column">PATIENT</th>
             <th className="dentist-column">DENTIST</th>
             <th className="service-column">SERVICE</th>
-            <th className="download-column">DOWNLOAD INVOICE</th>
+            <th className="download-column">DOWNLOAD NOTES</th>
           </tr>
         </thead>
         <tbody>
@@ -146,7 +147,7 @@ const VisitsPage = () => {
               <td>{item.service}</td>
               <td>
                 <button className="download-btn" onClick={() => handleDownload(item._id)}>
-                  [Download]
+                  Download PDF
                 </button>
               </td>
             </tr>

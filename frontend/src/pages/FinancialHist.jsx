@@ -148,7 +148,7 @@ const FinancialPage = () => {
               <th className="service-column">SERVICE</th>
               <th className="amount-column">AMOUNT DUE</th>
               <th className="status-column">STATUS</th>
-              <th className="download-column">DOWNLOAD INVOICE</th>
+              <th className="download-column">DOWNLOAD NOTES</th>
             </tr>
           </thead>
           <tbody>
@@ -169,7 +169,7 @@ const FinancialPage = () => {
                     className="download-btn"
                     onClick={() => handleDownload(item._id)}
                   >
-                    [Download]
+                    Download PDF
                   </button>
                 </td>
               </tr>
