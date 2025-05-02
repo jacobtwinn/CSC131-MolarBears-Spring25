@@ -60,6 +60,7 @@ const Home = () => {
                 01.
               </Text>
               <Text fontWeight="semibold">Preventive Care</Text>
+              <Box flex="1" />
               <HashLink smooth to='#care-section' >
                 <Button variant="link" color="blue.500" rightIcon={<>→</>}>
                   Learn More
