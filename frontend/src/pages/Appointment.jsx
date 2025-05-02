@@ -1,18 +1,21 @@
 // Appointment.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react'; // Add useContext
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
 import 'react-time-picker/dist/TimePicker.css';
 import 'react-calendar/dist/Calendar.css';
 import { format, parse} from 'date-fns';
 import '/src/CSS/Appointment.css';
-import { time } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 export default function DentalAppointmentManager() {
   const [date, setDate] = useState(new Date());
   const [appointments, setAppointments] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [form, setForm] = useState({ name: '', time: '' });
+  const { currentUser } = useAuth();
+
+  // Remove the fetchUser useEffect since we're using AuthContext now
 
   const formattedDate = date.toISOString().split('T')[0];
   console.log('Formatted Date:', formattedDate);
@@ -48,14 +51,23 @@ export default function DentalAppointmentManager() {
       ? `http://localhost:5001/api/appointments/${selectedAppointment._id}`
       : 'http://localhost:5001/api/appointments';
 
-    console.log('Submitting to:', endpoint);
-    console.log('Payload:', { date: formattedDate, ...form });
+    const payload = {
+      date: formattedDate,
+      name: form.name,
+      time: formattedTime,
+      // Add a null check for currentUser
+      userId: currentUser?._id || '' 
+    }
     
     try {
       await fetch(endpoint, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date: formattedDate, name: form.name, time: formattedTime })
+        headers: { 
+          'Content-Type': 'application/json',
+          // Add Authorization header if you have a token
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify(payload)
       });
       setForm({ name: '', time: '' });
       setSelectedAppointment(null);

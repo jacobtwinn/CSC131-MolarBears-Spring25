@@ -30,6 +30,10 @@ const UserDashboard = () => {
           variant="ghost"
           aria-label="Notifications"
           fontSize="24px"
+          as={Link}
+          to="/notifications"
+          _hover={{ bg: "blue.100" }}
+          _active={{ bg: "blue.200" }}
         />
       </Box>
 

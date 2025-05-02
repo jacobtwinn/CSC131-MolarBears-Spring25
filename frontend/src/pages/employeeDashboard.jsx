@@ -30,6 +30,10 @@ const EmployeeDashboard = () => {
           variant="ghost"
           aria-label="Notifications"
           fontSize="24px"
+          as={Link}
+          to="/notifications"
+          _hover={{ bg: "blue.100" }}
+          _active={{ bg: "blue.200" }}
         />
       </Box>
 
@@ -93,7 +97,7 @@ const EmployeeDashboard = () => {
         {/* Quick Actions */}
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem>
-            <Button as={Link} to="/appointments" w="100%" bg="blue.100">
+            <Button as={Link} to="/dental-appointments" w="100%" bg="blue.100">
               Book an Appointment
             </Button>
           </GridItem>

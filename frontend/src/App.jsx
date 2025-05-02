@@ -25,6 +25,7 @@ import Reviews from "./pages/Reviews";
 import FAQ from "./pages/FAQ";
 import AppointmentGuidelines from "./pages/AppointmentGuidelines";
 import InsurancePaymentPlans from "./pages/InsurancePaymentPlans";
+import NotificationPage from "./pages/NotificationPage";
 import { isTokenValid } from "./utils/authUtils";
 import { useAuth } from "./context/AuthContext";
 
@@ -74,11 +75,12 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/visit-history" element={<VisitsPage />} />
         <Route path="/financial-history" element={<FinancialHist />} />
-        <Route path="/appointments" element={<DentalAppointments />} />
+        <Route path="/dental-appointments" element={<DentalAppointments />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/appt-guidelines" element={<AppointmentGuidelines />} />
         <Route path="/payment-info" element={<InsurancePaymentPlans />} />
+        <Route path="/notifications" element={<NotificationPage />} />
 
         {/* Role-Based Routes */}
         <Route

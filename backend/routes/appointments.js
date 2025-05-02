@@ -1,5 +1,6 @@
 import express from 'express';
 import Appointment from '../models/Appointment.js';
+import Notification from '../models/Notification.js';
 
 const router = express.Router();
 // GET appointments by date
@@ -19,13 +20,27 @@ router.get('/', async (req, res) => {
 
 // POST a new appointment
 router.post('/', async (req, res) => {
-  const { name, time, date } = req.body;
-  if (!name || !time || !date) {
-    return res.status(400).json({ error: 'All fields are required' });
+  const { name, time, date, userId } = req.body; // Include userId in the request body
+  if (!name || !time || !date || !userId) {
+    return res.status(400).json({ error: 'All fields, including userId, are required' });
   }
-  const newAppointment = new Appointment({ name, time, date });
-  await newAppointment.save();
-  res.status(201).json(newAppointment);
+
+  try {
+    const newAppointment = new Appointment({ name, time, date });
+    await newAppointment.save();
+
+    await Notification.create({
+      recipientId: userId, // Use the provided userId
+      role: 'patient', // Adjust role logic as needed
+      messageTitle: 'New Appointment Scheduled',
+      message: `You have a new appointment scheduled on ${date} at ${time}`,
+    });
+
+    res.status(201).json(newAppointment);
+  } catch (error) {
+    console.error('Error creating appointment:', error);
+    res.status(500).json({ error: 'Failed to create appointment' });
+  }
 });
 
 // PUT update an existing appointment
