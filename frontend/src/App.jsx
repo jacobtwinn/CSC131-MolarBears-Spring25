@@ -10,6 +10,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import VisitsPage from "./pages/VisitHist";
 import FinancialHist from "./pages/FinancialHist";
+import EmploymentStatus from "./pages/EmploymentStatus";
+import Reviews from "./pages/Reviews";
 import Footer from "./components/ui/Footer";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -21,13 +23,14 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import DentalAppointments from "./pages/Appointment";
-import Reviews from "./pages/Reviews";
 import FAQ from "./pages/FAQ";
 import AppointmentGuidelines from "./pages/AppointmentGuidelines";
 import InsurancePaymentPlans from "./pages/InsurancePaymentPlans";
 import NotificationPage from "./pages/NotificationPage";
 import { isTokenValid } from "./utils/authUtils";
 import { useAuth } from "./context/AuthContext";
+import AdminPayroll from "./pages/AdminPayroll";
+
 
 function App() {
   const { isLoggedIn, setIsLoggedIn, userInfo } = useAuth();
@@ -73,14 +76,17 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/reviews" element={<Reviews />} />
         <Route path="/visit-history" element={<VisitsPage />} />
         <Route path="/financial-history" element={<FinancialHist />} />
         <Route path="/dental-appointments" element={<DentalAppointments />} />
+        <Route path="/employment-status" element={<EmploymentStatus />} />
         <Route path="/reviews" element={<Reviews />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/appt-guidelines" element={<AppointmentGuidelines />} />
         <Route path="/payment-info" element={<InsurancePaymentPlans />} />
         <Route path="/notifications" element={<NotificationPage />} />
+        <Route path= "/admin-payroll" element={<AdminPayroll />} />
 
         {/* Role-Based Routes */}
         <Route
@@ -88,6 +94,22 @@ function App() {
           element={
             <ProtectedRoute>
               {getDashboard()}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employee-dashboard"
+          element={
+            <ProtectedRoute>
+              <EmployeeDashboard />
             </ProtectedRoute>
           }
         />

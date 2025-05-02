@@ -129,8 +129,8 @@ const AdminDashboard = () => {
         {/* Quick Actions */}
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem>
-            <Button as={Link} to="/dental-appointments" w="100%" bg="blue.100">
-              Book an Appointment
+            <Button as={Link} to="/employment-status" w="100%" bg="blue.100">
+              Employment Status
             </Button>
           </GridItem>
           <GridItem>
@@ -140,12 +140,12 @@ const AdminDashboard = () => {
           </GridItem>
           <GridItem>
             <Button as={Link} to="/reviews" w="100%" bg="blue.200">
-              Employee Manager
+              Employee Reviews
             </Button>
           </GridItem>
           <GridItem>
-            <Button as={Link} to="/financial-history" w="100%" bg="blue.100">
-              AdminPlaceholder
+            <Button as={Link} to="/admin-payroll" w="100%" bg="blue.100">
+              Payroll Management
             </Button>
           </GridItem>
         </Grid>

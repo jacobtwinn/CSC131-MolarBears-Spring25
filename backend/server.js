@@ -9,11 +9,13 @@ import Appointment from "./routes/appointments.js";
 import detect from "detect-port";
 import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
 import ReviewRoutes from './routes/ReviewRoutes.js';
+import EmployeeRoutes from './routes/EmployeeRoutes.js';
 import financialHistoryRoute from './routes/financialHistoryRoute.js';
 import uploadProfilePictureRouter from './routes/uploadProfilePicture.js';
 import notificationRoute from './routes/notifications.js';
 import path from "path";
 import { fileURLToPath } from "url";
+import payrollRoutes from './routes/payrollRoutes.js'; // Import the payroll routes
 
 
 dotenv.config({ path: "../.env" });
@@ -38,10 +40,12 @@ mongoose
 app.use("/api/auth", authRoutes);
 app.use("/api", VisitHistoryRoutes);
 app.use("/api", ReviewRoutes);
+app.use("/api", EmployeeRoutes);
 app.use("/api", financialHistoryRoute);
 app.use("/api/appointments", Appointment);
 app.use("/api/reset", resetRoutes);
-app.use("/api/profile", uploadProfilePictureRouter);
+app.use("/api/profile", uploadProfilePictureRouter); 
+app.use("/api/employees", payrollRoutes);
 app.use("/api/notifications", notificationRoute);
 
 
