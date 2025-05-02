@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "../utils/AdminPayroll.css"; // Assuming you have a CSS file for styling
+import "../CSS/AdminPayroll.css"; // Assuming you have a CSS file for styling
 
 const AdminPayroll = () => {
   const [employees, setEmployees] = useState([]); // List of employees for the dropdown
