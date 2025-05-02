@@ -1,13 +1,9 @@
-import mongoose from "mongoose";
+const mongoose = require('mongoose');
 
-const employeeSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  hoursWorked: { type: Number, default: 0 },
-  overtimeHours: { type: Number, default: 0 },
-  payRate: { type: Number, required: true },
-  sickPay: { type: Number, default: 0 },
+const EmployeeSchema = new mongoose.Schema({
+  name: { type: Date, required: true },
+  position: { type: String, required: true },
+  salary: { type: Number, required: true },
 });
 
-const Employee = mongoose.model("Employee", employeeSchema);
-
-export default Employee;
+module.exports = mongoose.model('Employee', EmployeeSchema);

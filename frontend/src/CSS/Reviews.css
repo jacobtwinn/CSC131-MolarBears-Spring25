@@ -88,3 +88,12 @@ html, body, #root {
     border-radius: 6px;
     cursor: pointer;
 }
+
+.delete-button {
+    background-color: #e53e3e;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
