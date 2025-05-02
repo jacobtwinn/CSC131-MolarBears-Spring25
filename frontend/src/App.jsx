@@ -23,13 +23,13 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import DentalAppointments from "./pages/Appointment";
-import Reviews from "./pages/Reviews";
 import FAQ from "./pages/FAQ";
 import AppointmentGuidelines from "./pages/AppointmentGuidelines";
 import InsurancePaymentPlans from "./pages/InsurancePaymentPlans";
 import { isTokenValid } from "./utils/authUtils";
 import { useAuth } from "./context/AuthContext";
 import AdminPayroll from "./pages/AdminPayroll";
+
 
 function App() {
   const { isLoggedIn, setIsLoggedIn, userInfo } = useAuth();

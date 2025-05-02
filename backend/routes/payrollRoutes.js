@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 // Fetch a specific employee by ID
 router.get("/:id", async (req, res) => {
   try {
-    const employee = await Employee.findById(req.params.id);
+    const employee = await Payroll.findById(req.params.id);
     if (!employee) {
       return res.status(404).json({ message: "Employee not found." });
     }
