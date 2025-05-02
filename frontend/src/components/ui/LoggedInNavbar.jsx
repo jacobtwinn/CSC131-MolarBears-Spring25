@@ -97,7 +97,7 @@ const LoggedInNavbar = () => {
           <Dropdown title="APPOINTMENT">
             <Link
               as={RouterLink}
-              to="/appointments"
+              to="/dental-appointments"
               display="block"
               p={2}
               _hover={{ bg: "gray.100" }}
