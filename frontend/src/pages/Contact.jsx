@@ -37,7 +37,7 @@ const Contact = () => {
               Phone
             </Text>
             <Text color="black" fontSize="2xl" fontWeight="bold" mx="auto" mt={7}>
-              1-800-123-4567
+              916-234-5678
             </Text>
             <Text color="black" fontSize="4xl" fontWeight="bold" mx="auto" mt={7}>
               Receptionist Availability
@@ -52,7 +52,7 @@ const Contact = () => {
               Sat - Sun
             </Text>
             <Text color="black" fontSize="xl" fontWeight="bold" mx="auto" mt={7}>
-              12 pm - 5 pm
+              CLOSED
             </Text>
           </Box>
         </GridItem>
