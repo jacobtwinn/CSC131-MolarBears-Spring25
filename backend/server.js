@@ -13,6 +13,7 @@ import financialHistoryRoute from './routes/financialHistoryRoute.js';
 import uploadProfilePictureRouter from './routes/uploadProfilePicture.js';
 import path from "path";
 import { fileURLToPath } from "url";
+import payrollRoutes from './routes/payrollRoutes.js'; // Import the payroll routes
 
 
 dotenv.config({ path: "../.env" });
@@ -41,6 +42,7 @@ app.use("/api", financialHistoryRoute);
 app.use("/api/appointments", Appointment);
 app.use("/api/reset", resetRoutes);
 app.use("/api/profile", uploadProfilePictureRouter); 
+app.use("/api/employees", payrollRoutes);
 
 
 // Homepage

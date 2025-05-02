@@ -27,6 +27,7 @@ import AppointmentGuidelines from "./pages/AppointmentGuidelines";
 import InsurancePaymentPlans from "./pages/InsurancePaymentPlans";
 import { isTokenValid } from "./utils/authUtils";
 import { useAuth } from "./context/AuthContext";
+import AdminPayroll from "./pages/AdminPayroll";
 
 function App() {
   const { isLoggedIn, setIsLoggedIn, userInfo } = useAuth();
@@ -79,6 +80,7 @@ function App() {
         <Route path="/faq" element={<FAQ />} />
         <Route path="/appt-guidelines" element={<AppointmentGuidelines />} />
         <Route path="/payment-info" element={<InsurancePaymentPlans />} />
+        <Route path= "/admin-payroll" element={<AdminPayroll />} />
 
         {/* Role-Based Routes */}
         <Route
@@ -86,6 +88,22 @@ function App() {
           element={
             <ProtectedRoute>
               {getDashboard()}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin-dashboard"
+          element={
+            <ProtectedRoute>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employee-dashboard"
+          element={
+            <ProtectedRoute>
+              <EmployeeDashboard />
             </ProtectedRoute>
           }
         />
