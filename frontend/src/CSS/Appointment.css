@@ -78,4 +78,8 @@
     cursor: pointer;
     padding: 8px 8px;
   }
+
+  .page-bottom-space {
+    margin-bottom: 80px;
+  }
   

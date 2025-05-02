@@ -274,6 +274,7 @@ const AppointmentPage = () => {
           </Button>
         </VStack>
       </Box>
+      <Box pb={20}></Box>
     </Box>
   );
 };

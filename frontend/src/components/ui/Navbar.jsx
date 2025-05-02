@@ -52,7 +52,7 @@ const Navbar = () => {
         <Spacer />
 
         {/* Log In Button */}
-        <Button as={RouterLink} to="/login" colorScheme="blackAlpha" variant="solid" px={6}>
+        <Button as={RouterLink} to="/login" colorScheme="blue" variant="solid" px={6}>
           Log In
         </Button>
       </Flex>

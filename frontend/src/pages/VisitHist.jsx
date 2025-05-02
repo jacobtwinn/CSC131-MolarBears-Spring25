@@ -167,6 +167,7 @@ const VisitsPage = () => {
           Next →
         </button>
       </div>
+      <div className="page-bottom-space"></div>
     </div>
   );
 };

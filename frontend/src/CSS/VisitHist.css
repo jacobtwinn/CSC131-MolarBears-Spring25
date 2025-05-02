@@ -102,3 +102,7 @@
   .sort-menu div:hover {
     background-color: #f2f2f2;
   }
+
+  .page-bottom-space {
+    margin-bottom: 80px;
+  }
