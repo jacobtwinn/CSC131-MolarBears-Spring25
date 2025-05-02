@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
   try {
     const { name, hoursWorked, overtimeHours, payRate, sickPay } = req.body;
 
-    const employee = await Employee.findOneAndUpdate(
+    const employee = await Payroll.findOneAndUpdate(
       { name },
       { hoursWorked, overtimeHours, payRate, sickPay },
       { new: true, upsert: true }
