@@ -11,6 +11,8 @@ const FinancialPage = () => {
   const [error, setError] = useState(null);
   const [totalBalance, setTotalBalance] = useState(0);
   const [showSortMenu, setShowSortMenu] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalBalanceDue, setTotalBalanceDue] = useState(0);
 
   const [sortCriteria, setSortCriteria] = useState({
     field: 'date',
@@ -60,6 +62,9 @@ const FinancialPage = () => {
           }));
           
           setFinancialData(formattedData);
+          setTotalPages(response.data.totalPages || 1);
+          setTotalBalanceDue(response.data.totalBalanceDue || 0);
+          console.log("Total Pages:", response.data.totalPages || 1);
         }
         setTotalBalance(response.data.totalBalance || 0);
         setIsLoading(false);
@@ -80,11 +85,14 @@ const FinancialPage = () => {
   };
 
   const handleNext = () => {
-    setCurrentPage(currentPage + 1);
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   const handleDownload = (invoiceId) => {
-    console.log(`Downloading invoice ${invoiceId}`);
+    const downloadUrl = `http://localhost:5001/api/FinancialHistory/${invoiceId}/download`;
+  window.open(downloadUrl, "_blank");
   };
 
   const handlePayNow = () => {
@@ -178,14 +186,18 @@ const FinancialPage = () => {
           ← Previous
         </button>
         <span className="page-number">{currentPage}</span>
-        <button className="pagination-btn next" onClick={handleNext}>
+        <button
+          className="pagination-btn next"
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+        >
           Next →
         </button>
       </div>
       <div className="summary-container">
         <div className="balance-card">
           <div className="balance-title">TOTAL BALANCE DUE:</div>
-          <div className="balance-amount">${pendingAmount}</div>
+          <div className="balance-amount">${totalBalanceDue.toFixed(2)}</div>
         </div>
         <button className="pay-now-btn" onClick={handlePayNow}>
           PAY NOW

@@ -104,12 +104,12 @@ const EmployeeDashboard = () => {
           </GridItem>
           <GridItem>
             <Button as={Link} to="/reviews" w="100%" bg="blue.200">
-              EmployeePlaceholder
+              Providor Reviews
             </Button>
           </GridItem>
           <GridItem>
             <Button as={Link} to="/financial-history" w="100%" bg="blue.100">
-            EmployeePlaceholder
+            Financial History
             </Button>
           </GridItem>
         </Grid>
