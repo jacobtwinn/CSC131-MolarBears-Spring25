@@ -1,8 +1,6 @@
 import express from 'express';
 import Appointment from '../models/Appointment.js';
 import Notification from '../models/Notification.js';
-import express from "express";
-import Appointment from "../models/Appointment.js";
 import { authenticateUser } from "../middleware/authenticate.js";
 import { sendEmail } from "../utils/mailer.js";
 
@@ -29,30 +27,6 @@ router.get("/", authenticateUser, async (req, res) => {
     res.status(500).json({ error: "Failed to fetch appointments" });
   }
 });
-
-// POST a new appointment
-router.post('/', async (req, res) => {
-  const { name, time, date, userId } = req.body; // Include userId in the request body
-  if (!name || !time || !date || !userId) {
-    return res.status(400).json({ error: 'All fields, including userId, are required' });
-  }
-
-  try {
-    const newAppointment = new Appointment({ name, time, date });
-    await newAppointment.save();
-
-    await Notification.create({
-      recipientId: userId, // Use the provided userId
-      role: 'patient', // Adjust role logic as needed
-      messageTitle: 'New Appointment Scheduled',
-      message: `You have a new appointment scheduled on ${date} at ${time}`,
-    });
-
-    res.status(201).json(newAppointment);
-  } catch (error) {
-    console.error('Error creating appointment:', error);
-    res.status(500).json({ error: 'Failed to create appointment' });
-  }
 // POST new appointment
 router.post("/", authenticateUser, async (req, res) => {
   try {
@@ -67,6 +41,16 @@ router.post("/", authenticateUser, async (req, res) => {
       reason,
       provider,
     });
+
+    const notification = new Notification({
+      role: 'patient',
+      userId: req.user._id,
+      messageTitle: 'New Appointment Scheduled',
+      message: `Your appointment with ${provider} for ${reason} has been scheduled for ${time} on ${new Date(date).toDateString()}.`,
+      email: req.user.email
+    });
+
+    await notification.save();
 
     await newAppointment.save();
 
@@ -99,6 +83,15 @@ router.put("/:id", authenticateUser, async (req, res) => {
     appointment.status = "rescheduled";
 
     await appointment.save();
+
+    const notification = new Notification({
+      role: 'patient',
+      userId: req.user._id,
+      messageTitle: 'New Appointment Updated',
+      message: `Your appointment with ${provider} for ${reason} has been updated for ${time} on ${new Date(date).toDateString()}.`,
+      email: req.user.email
+    });
+    await notification.save();
 
     await sendEmail({
       to: req.user.email,

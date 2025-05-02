@@ -1,49 +1,54 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import '/src/CSS/NotificationPage.css';
+import { useAuth } from '../context/AuthContext';
 
 const NotificationPage = () => {
+  const { userInfo } = useAuth(); // Get user info from AuthContext
   const [notifications, setNotifications] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-  useEffect(() => {
-    // Simulate fetching user data
-    const fetchUser = async () => {
-      const res = await axios.get('/api/auth/me'); // Example endpoint
-      setCurrentUser(res.data);
-    };
-
-    fetchUser();
-  }, []);
+  const [showAll, setShowAll] = useState(false); // State to toggle between showing all or limited notifications
 
   useEffect(() => {
-    if (!currentUser) return;
+    if (!userInfo || !userInfo._id) {
+      console.error('User ID is missing');
+      return;
+    }
 
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get(`/api/notifications?role=${currentUser.role}&userId=${currentUser._id}`);
-        setNotifications(res.data);
+        const res = await axios.get(`http://localhost:5001/api/notifications?userId=${userInfo._id}`);
+        console.log('API Response:', res.data); // Log the full response
+        setNotifications(res.data.notifications || []);
       } catch (err) {
-        console.error("Error fetching notifications", err);
+        console.error('Error fetching notifications:', err);
       }
     };
 
     fetchNotifications();
-  }, [currentUser]);
+  }, [userInfo]);
 
-  const dismissNotification = (id) => {
-    setNotifications((prev) => prev.filter((note) => note._id !== id));
+  const dismissNotification = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5001/api/notifications/${id}`);
+      setNotifications((prev) => prev.filter((note) => note._id !== id));
+    } catch (err) {
+      console.error('Error dismissing notification:', err);
+    }
   };
 
-  if (!currentUser) return <div>Loading user data...</div>;
+  if (!userInfo) return <div>Loading user data...</div>;
+
+  // Determine which notifications to display
+  const displayedNotifications = showAll ? notifications : notifications.slice(0, 5);
 
   return (
     <div className="notification-container">
       <div className="notifications-box">
         <h1 className="notifications-title">Notification Hub</h1>
         <ul className="notification-list">
-          {Array.isArray(notifications) && notifications.length > 0 ? (
-            notifications.map((note, index) => (
+          {Array.isArray(displayedNotifications) && displayedNotifications.length > 0 ? (
+            displayedNotifications.map((note, index) => (
               <li
                 key={note._id}
                 className={`notification-item ${index > 1 ? 'faded' : ''}`}
@@ -65,9 +70,13 @@ const NotificationPage = () => {
             <li className="notification-item">No notifications available</li>
           )}
         </ul>
-        <div className="view-all">
-          <button>View All</button>
-        </div>
+        {notifications.length > 5 && (
+          <div className="view-all">
+            <button onClick={() => setShowAll(!showAll)}>
+              {showAll ? 'Show Less' : 'View All'}
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="illustration-box">

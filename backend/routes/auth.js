@@ -99,6 +99,8 @@ router.get("/users/me", async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     res.json({
+      _id: user._id,
+      username: user.username,
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,

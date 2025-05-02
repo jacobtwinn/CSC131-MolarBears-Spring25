@@ -11,6 +11,7 @@ import VisitHistoryRoutes from './routes/VisitHistoryRoutes.js';
 import ReviewRoutes from './routes/ReviewRoutes.js';
 import financialHistoryRoute from './routes/financialHistoryRoute.js';
 import uploadProfilePictureRouter from './routes/uploadProfilePicture.js';
+import notificationRoute from './routes/notifications.js';
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -40,7 +41,8 @@ app.use("/api", ReviewRoutes);
 app.use("/api", financialHistoryRoute);
 app.use("/api/appointments", Appointment);
 app.use("/api/reset", resetRoutes);
-app.use("/api/profile", uploadProfilePictureRouter); 
+app.use("/api/profile", uploadProfilePictureRouter);
+app.use("/api/notifications", notificationRoute);
 
 
 // Homepage

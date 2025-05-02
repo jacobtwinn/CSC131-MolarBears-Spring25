@@ -6,6 +6,7 @@ const notificationSchema = new mongoose.Schema({
   messageTitle: { type: String, required: true },
   message: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
+  email: { type: String, required: true },
 });
 
 export default mongoose.model('Notification', notificationSchema);

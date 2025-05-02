@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Flex,
@@ -11,22 +11,54 @@ import {
   VStack,
   HStack,
   Divider,
+  Badge,
 } from "@chakra-ui/react";
 import { BellIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import axios from "axios";
 
 const AdminDashboard = () => {
   const { userInfo } = useAuth();
+  const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      if (!userInfo || !userInfo._id) return;
+      try {
+        const res = await axios.get(`http://localhost:5001/api/notifications?userId=${userInfo._id}`);
+        const unread = res.data.notifications.some((note) => !note.read); // Check for unread notifications
+        setHasUnreadNotifications(unread);
+      } catch (err) {
+        console.error("Error fetching notifications:", err);
+      }
+    };
+    fetchNotifications();
+  }, [userInfo]);
 
   const firstName = userInfo?.firstName || "User";
   const profilePicture = userInfo?.profilePicture || "/default-pfp.jpg";
+
   return (
     <Box p={8} fontFamily="Arial, sans-serif" position="relative">
       {/* Notification icon */}
       <Box position="absolute" top={4} right={4}>
         <IconButton
-          icon={<BellIcon />}
+          icon={
+            <Box position="relative">
+              <BellIcon />
+              {hasUnreadNotifications && (
+                <Badge
+                  position="absolute"
+                  top="-2px"
+                  right="-2px"
+                  bg="red.500"
+                  borderRadius="full"
+                  boxSize="8px"
+                />
+              )}
+            </Box>
+          }
           variant="ghost"
           aria-label="Notifications"
           fontSize="24px"
