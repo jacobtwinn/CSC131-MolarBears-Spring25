@@ -1,3 +1,4 @@
+// FinancialHist.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "/src/CSS/FinancialHist.css";

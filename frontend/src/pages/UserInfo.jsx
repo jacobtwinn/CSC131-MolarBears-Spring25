@@ -1,8 +1,12 @@
 // pages.UserInfo.jsx
 import React, { useState } from "react";
 import "/src/CSS/UserInfo.css";
+import { useAuth } from "../context/AuthContext";
+import axios from "axios";
+
 
 const AccountDetails = () => {
+  const { refreshUserInfo, userInfo } = useAuth();
   const [userDetails, setUserDetails] = useState({
     personalInfo: {
       name: 'John Doe',
@@ -234,20 +238,43 @@ const AccountDetails = () => {
                 value={userDetails.personalInfo.DOB}
                 onChange={(e) => updatePersonalInfo('DOB', e.target.value)}
               />
-            </div>
             <div className="input-group">
-            <label>Upload Profile Picture</label>
-              <input 
-                type="file" 
+              <label>Upload Profile Picture</label>
+              <input
+                type="file"
                 accept="image/png, image/jpeg"
-                onChange={(e) => {
+                onChange={async (e) => {
+
                 const file = e.target.files[0];
                 if (file) {
-                  const imageUrl = URL.createObjectURL(file);
-                  updatePersonalInfo('profilePicture', imageUrl);
-                }
-              }}
-              />
+                // Create a URL for the selected file and update the state
+                const imageUrl = URL.createObjectURL(file);
+                updatePersonalInfo("profilePicture", imageUrl);
+
+                const formData = new FormData();
+                formData.append("profilePicture", file);
+
+                try {
+                 const token = localStorage.getItem("jwtToken");
+
+                 await axios.put("http://localhost:5001/api/profile/upload", formData, {
+                   headers: {
+                     Authorization: `Bearer ${token}`,
+                   },
+                 });
+
+
+                 await refreshUserInfo();
+                } catch (error) {
+                  console.error("Failed to upload profile picture:", error);
+               }
+             } else {
+              console.error("No file selected!");
+             }
+           }}
+         />
+        </div>
+
             </div>
           </>
         ) : (
@@ -430,7 +457,7 @@ const AccountDetails = () => {
     <div className="account-details-container">
       <div className="header-with-picture">
         <img
-          src={userDetails.personalInfo.profilePicture || "/default-pfp.jpg"}
+          src={userInfo?.profilePicture || "/default-pfp.jpg"}
           alt="Profile"
          className="small-profile-picture"
         />
@@ -443,17 +470,38 @@ const AccountDetails = () => {
         </button>
         <input
           type="file"
-          id="profilePicUpload"
-          accept="image/png, image/jpeg"
-          style={{ display: "none" }}
-          onChange={(e) => {
+         id="profilePicUpload"
+         accept="image/png, image/jpeg"
+         style={{ display: "none" }}
+         onChange={async (e) => {
+
             const file = e.target.files[0];
-           if (file) {
-              const imageUrl = URL.createObjectURL(file);
-              updatePersonalInfo("profilePicture", imageUrl);
-            }
-          }}
+            if (file) {
+
+             const imageUrl = URL.createObjectURL(file);
+             updatePersonalInfo("profilePicture", imageUrl);
+
+             const formData = new FormData();
+              formData.append("profilePicture", file);
+
+             try {
+               const token = localStorage.getItem("jwtToken");
+
+                await axios.put("http://localhost:5001/api/profile/upload", formData, {
+                  headers: {
+                    Authorization: `Bearer ${token}`,
+                 },
+                });
+
+
+               await refreshUserInfo();
+             } catch (error) {
+             }
+           } else {
+           }
+         }}
         />
+
       </div>
 
       <h2 className="account-title">Account Details</h2>

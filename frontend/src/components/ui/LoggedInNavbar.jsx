@@ -20,7 +20,6 @@ import {
 // Custom dropdown component with active styling.
 const Dropdown = ({ title, linkBase, children }) => {
   const location = useLocation();
-  // Active if the current URL starts with the provided linkBase.
   const isActive = location.pathname.startsWith(linkBase);
 
   return (
@@ -62,11 +61,10 @@ const LoggedInNavbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("jwtToken"); // or whatever your token key is
-    navigate("/login"); // or redirect wherever you want
-    window.location.reload(); // force re-render to update navbar
+    localStorage.removeItem("jwtToken");
+    navigate("/login");
+    window.location.reload();
   };
-  
 
   return (
     <Box bg="white" px={6} py={4} boxShadow="sm">
@@ -95,25 +93,56 @@ const LoggedInNavbar = () => {
             HOME
           </Link>
 
-          {/* Dropdown menus */}
-          <Dropdown title="FINANCIALS" linkBase="/financials">
+          {/* Appointment dropdown */}
+          <Dropdown title="APPOINTMENT">
             <Link
               as={RouterLink}
-              to="/financials/placeholder1"
+              to="/appointments"
               display="block"
               p={2}
               _hover={{ bg: "gray.100" }}
             >
-              placeholder
+              Book an Appointment
             </Link>
             <Link
               as={RouterLink}
-              to="/financials/placeholder2"
+              to="/visit-history"
               display="block"
               p={2}
               _hover={{ bg: "gray.100" }}
             >
-              placeholder
+              Visit History
+            </Link>
+            <Link
+              as={RouterLink}
+              to="/appt-guidelines"
+              display="block"
+              p={2}
+              _hover={{ bg: "gray.100" }}
+            >
+              Guidelines/Forms
+            </Link>
+          </Dropdown>
+
+          {/* Financials dropdown */}
+          <Dropdown title="FINANCIALS">
+            <Link
+              as={RouterLink}
+              to="/financial-history"
+              display="block"
+              p={2}
+              _hover={{ bg: "gray.100" }}
+            >
+              Financial History
+            </Link>
+            <Link
+              as={RouterLink}
+              to="/payment-info"
+              display="block"
+              p={2}
+              _hover={{ bg: "gray.100" }}
+            >
+              Payment Info
             </Link>
             <Link
               as={RouterLink}
@@ -122,71 +151,39 @@ const LoggedInNavbar = () => {
               p={2}
               _hover={{ bg: "gray.100" }}
             >
-              placeholder
+              Placeholder
             </Link>
           </Dropdown>
 
-          <Dropdown title="SERVICES" linkBase="/services">
+          {/* Information dropdown */}
+          <Dropdown title="INFORMATION">
             <Link
               as={RouterLink}
-              to="/services/placeholder1"
+              to="/reviews"
               display="block"
               p={2}
               _hover={{ bg: "gray.100" }}
             >
-              placeholder
+              Provider Reviews
             </Link>
             <Link
               as={RouterLink}
-              to="/services/placeholder2"
+              to="/about"
               display="block"
               p={2}
               _hover={{ bg: "gray.100" }}
             >
-              placeholder
+              About Us
             </Link>
             <Link
               as={RouterLink}
-              to="/services/placeholder3"
+              to="/faq"
               display="block"
               p={2}
               _hover={{ bg: "gray.100" }}
             >
-              placeholder
+              FAQs
             </Link>
-          </Dropdown>
-
-          <Dropdown title="APPOINTMENT" linkBase="/appointment">
-            <Link
-              as={RouterLink}
-              to="/appointment/placeholder1"
-              display="block"
-              p={2}
-              _hover={{ bg: "gray.100" }}
-            >
-              placeholder
-            </Link>
-            <Link
-              as={RouterLink}
-              to="/appointment/placeholder2"
-              display="block"
-              p={2}
-              _hover={{ bg: "gray.100" }}
-            >
-              placeholder
-            </Link>
-            <Link
-              as={RouterLink}
-              to="/appointment/placeholder3"
-              display="block"
-              p={2}
-              _hover={{ bg: "gray.100" }}
-            >
-              placeholder
-            </Link>
-          </Dropdown>
-
-          <Dropdown title="INFORMATION" linkBase="/information">
             <Link
               as={RouterLink}
               to="/information/placeholder1"
@@ -194,7 +191,7 @@ const LoggedInNavbar = () => {
               p={2}
               _hover={{ bg: "gray.100" }}
             >
-              placeholder
+              Placeholder
             </Link>
             <Link
               as={RouterLink}
@@ -203,43 +200,34 @@ const LoggedInNavbar = () => {
               p={2}
               _hover={{ bg: "gray.100" }}
             >
-              placeholder
-            </Link>
-            <Link
-              as={RouterLink}
-              to="/information/placeholder3"
-              display="block"
-              p={2}
-              _hover={{ bg: "gray.100" }}
-            >
-              placeholder
+              Placeholder
             </Link>
           </Dropdown>
         </Flex>
 
         <Spacer />
 
-        {/* Profile image instead of avatar or sign-out button */}
+        {/* Profile image */}
         <Menu>
           <MenuButton
             as={IconButton}
             icon={
               <Image
-              src="/profile-icon.png"
-              alt="Profile"
-              boxSize="32px"
-              borderRadius="full"
-            />
-          }
-          variant="ghost"
-          _hover={{ bg: "gray.100" }}
-        />
-        <MenuList>
-          <MenuItem as={RouterLink} to="/user-info">
-            Edit Account
-          </MenuItem>
-          <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </MenuList>
+                src="/profile-icon.png"
+                alt="Profile"
+                boxSize="32px"
+                borderRadius="full"
+              />
+            }
+            variant="ghost"
+            _hover={{ bg: "gray.100" }}
+          />
+          <MenuList>
+            <MenuItem as={RouterLink} to="/user-info">
+              Edit Account
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </MenuList>
         </Menu>
       </Flex>
     </Box>

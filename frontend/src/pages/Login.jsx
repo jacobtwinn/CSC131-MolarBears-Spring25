@@ -27,17 +27,24 @@ const Login = () => {
         "http://localhost:5001/api/auth/login",
         formData
       );
-      const { token } = response.data;
+      const { token, role } = response.data;
 
       localStorage.setItem("jwtToken", token);
       setSuccess("Login successful!");
       console.log("JWT Token:", token);
       setIsLoggedIn(true);
       
-      // ✅ Call refreshUserInfo here instead of reloading:
+      // Call refreshUserInfo here instead of reloading:
       refreshUserInfo();
-      
-      navigate("/home"); // or wherever you want to send them
+
+      console.log("Logged in user role:", response.data.role); // optional
+      if (role === "admin") {
+        navigate("/admin-dashboard"); // Redirect to admin dashboard
+      } else if (role === "employee") {
+        navigate("/employee-dashboard"); // Redirect to employee dashboard
+      }
+      else navigate("/home")
+    
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred");
     }
