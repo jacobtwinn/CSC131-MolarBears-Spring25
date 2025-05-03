@@ -28,7 +28,7 @@ const InsurancePaymentPlans = () => {
 
           <Text>
             <Text as="span" fontWeight="bold" color="blue.400">Payment Options:</Text> <br />
-            We accept cash, major credit cards, HSA/FSA cards, and CareCredit financing. Full payment is due at the time services are rendered unless prior arrangements have been made.
+            We accept cash, major credit cards, and CareCredit financing. Full payment is due at the time services are rendered unless prior arrangements have been made.
           </Text>
 
           <Text>

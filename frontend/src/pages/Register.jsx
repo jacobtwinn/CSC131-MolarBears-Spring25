@@ -1,3 +1,4 @@
+// Register.jsx
 import React, { useState } from "react";
 import axios from "axios";
 import "/src/CSS/Register.css"; // Import the CSS file
@@ -6,13 +7,15 @@ const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
+    confirmPassword: "",
     firstName: "",
     lastName: "",
     email: "",
     gender: "",
     dob: "",
   });
-  const [step, setStep] = useState(1); // Track the current step
+
+  const [step, setStep] = useState(1);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -28,46 +31,45 @@ const Register = () => {
 
   const handleNext = () => {
     if (step === 1) {
-      // Validate Step 1 fields
-      if (!formData.username || !formData.password) {
-        setError("Username and password are required.");
+      if (!formData.username || !formData.password || !formData.confirmPassword) {
+        setError("All fields are required.");
         return;
       }
       if (!validatePassword(formData.password)) {
         setError(
-          "Password must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character."
+          "Password must be at least 8 characters, include an uppercase letter, number, and special character."
         );
+        return;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        setError("Passwords do not match.");
         return;
       }
     }
     setError("");
-    setStep(step + 1); // Move to the next step
+    setStep(step + 1);
   };
 
   const handleBack = () => {
-    setStep(step - 1); // Move to the previous step
+    setStep(step - 1);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Clear any previous errors
+    setError("");
     setSuccess("");
 
-    // Validate Step 2 fields
     const { firstName, lastName, email, gender, dob } = formData;
     if (!firstName || !lastName || !email || !gender || !dob) {
-      setError("Please ensure all fields are filled correctly.");
+      setError("Please fill in all fields.");
       return;
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:5001/api/auth/register",
-        formData,
-      );
-      setSuccess(response.data.message);
+      const response = await axios.post("http://localhost:5001/api/auth/register", formData);
+      setSuccess("Verification email sent. Please check your inbox.");
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred");
+      setError(err.response?.data?.message || "An error occurred during registration.");
     }
   };
 
@@ -76,6 +78,7 @@ const Register = () => {
       <div className="register-box">
         <h2>Register</h2>
         <form onSubmit={handleSubmit}>
+          {/* Step 1: Login credentials */}
           <div className={`step-container ${step === 1 ? "active" : ""}`}>
             {step === 1 && (
               <>
@@ -97,6 +100,15 @@ const Register = () => {
                     onChange={handleChange}
                   />
                 </div>
+                <div className="form-group">
+                  <label>Confirm Password:</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                  />
+                </div>
                 <button type="button" onClick={handleNext}>
                   Next
                 </button>
@@ -104,6 +116,7 @@ const Register = () => {
             )}
           </div>
 
+          {/* Step 2: Personal info */}
           <div className={`step-container ${step === 2 ? "active" : ""}`}>
             {step === 2 && (
               <>
@@ -152,16 +165,17 @@ const Register = () => {
                     onChange={handleChange}
                   />
                 </div>
-                <div class="button-group">
-                <button type="button" onClick={handleBack}>
-                  Back
-                </button>
-                <button type="submit">Submit</button>
+                <div className="button-group">
+                  <button type="button" onClick={handleBack}>
+                    Back
+                  </button>
+                  <button type="submit">Register</button>
                 </div>
               </>
             )}
           </div>
         </form>
+
         {error && <p className="error-message">{error}</p>}
         {success && <p className="success-message">{success}</p>}
       </div>

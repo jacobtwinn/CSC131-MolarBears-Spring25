@@ -1,3 +1,4 @@
+// pages/UserDashboard.jsx
 import React, { useEffect, useState } from "react";
 import {
   Box,
@@ -21,21 +22,34 @@ import { useAuth } from "../context/AuthContext";
 const UserDashboard = () => {
   const { userInfo } = useAuth();
   const [hasUnreadNotifications, setHasUnreadNotifications] = useState(false);
+  const [upcomingAppointments, setUpcomingAppointments] = useState([]);
 
   useEffect(() => {
     const fetchNotifications = async () => {
-      if (!userInfo || !userInfo._id) return;
-
+      if (!userInfo?._id) return;
       try {
         const res = await axios.get(`http://localhost:5001/api/notifications?userId=${userInfo._id}`);
-        const unread = res.data.notifications.some((note) => !note.read); // Check for unread notifications
+        const unread = res.data.notifications.some((note) => !note.read);
         setHasUnreadNotifications(unread);
       } catch (err) {
         console.error("Error fetching notifications:", err);
       }
     };
 
+    const fetchAppointments = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const res = await axios.get("http://localhost:5001/api/appointments/upcoming", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setUpcomingAppointments(res.data);
+      } catch (err) {
+        console.error("Error fetching appointments:", err);
+      }
+    };
+
     fetchNotifications();
+    fetchAppointments();
   }, [userInfo]);
 
   const firstName = userInfo?.firstName || "User";
@@ -43,7 +57,7 @@ const UserDashboard = () => {
 
   return (
     <Box p={8} fontFamily="Arial, sans-serif" position="relative">
-      {/* Notification icon */}
+      {/* Notification Icon */}
       <Box position="absolute" top={4} right={4}>
         <IconButton
           icon={
@@ -86,45 +100,38 @@ const UserDashboard = () => {
       </Flex>
 
       {/* Content */}
-      <Flex
-        mt={12}
-        gap={10}
-        direction={{ base: "column", md: "row" }}
-        justify="center"
-        align="start"
-      >
+      <Flex mt={12} gap={10} direction={{ base: "column", md: "row" }} justify="center" align="start">
         {/* Upcoming Visits */}
         <Box border="1px solid" borderColor="gray.300" borderRadius="md" p={4} minW="300px">
-          <Text fontWeight="bold" mb={4}>
-            Upcoming Visits
-          </Text>
+          <Text fontWeight="bold" mb={4}>Upcoming Visits</Text>
           <VStack spacing={3} align="stretch">
-            <Box p={3} borderRadius="md">
-              <HStack>
-                <VStack spacing={0} align="start">
-                  <Text fontSize="lg" fontWeight="bold">01</Text>
-                  <Text fontSize="sm">April</Text>
-                </VStack>
-                <Divider orientation="vertical" height="40px" borderColor="blue.400" />
-                <Box>
-                  <Text fontWeight="semibold">Consultation with Dr. Drill</Text>
-                  <Text fontSize="sm">3:30pm - 4:00pm</Text>
-                </Box>
-              </HStack>
-            </Box>
-            <Box p={3} borderRadius="md">
-              <HStack>
-                <VStack spacing={0} align="start">
-                  <Text fontSize="lg" fontWeight="bold">15</Text>
-                  <Text fontSize="sm">April</Text>
-                </VStack>
-                <Divider orientation="vertical" height="40px" borderColor="blue.400" />
-                <Box>
-                  <Text fontWeight="semibold">Wisdom Tooth Surgery</Text>
-                  <Text fontSize="sm">8:30am - 11:00am</Text>
-                </Box>
-              </HStack>
-            </Box>
+            {upcomingAppointments.length === 0 ? (
+              <Text>No upcoming appointments.</Text>
+            ) : (
+              upcomingAppointments.map((appt, idx) => {
+                const visitDate = new Date(appt.date);
+                const day = visitDate.getDate().toString().padStart(2, "0");
+                const month = visitDate.toLocaleString("default", { month: "short" });
+
+                return (
+                  <Box key={idx} p={3} borderRadius="md">
+                    <HStack>
+                      <VStack spacing={0} align="start">
+                        <Text fontSize="lg" fontWeight="bold">{day}</Text>
+                        <Text fontSize="sm">{month}</Text>
+                      </VStack>
+                      <Divider orientation="vertical" height="40px" borderColor="blue.400" />
+                      <Box>
+                        <Text fontWeight="semibold">
+                          {appt.reason || "Appointment"} with {appt.provider || "Provider"}
+                        </Text>
+                        <Text fontSize="sm">{appt.time}</Text>
+                      </Box>
+                    </HStack>
+                  </Box>
+                );
+              })
+            )}
           </VStack>
         </Box>
 

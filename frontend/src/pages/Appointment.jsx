@@ -90,7 +90,7 @@ const AppointmentPage = () => {
 
     try {
       setLoading(true);
-      await fetch(endpoint, {
+      const res = await fetch(endpoint, {
         method,
         headers: {
           "Content-Type": "application/json",
@@ -103,6 +103,19 @@ const AppointmentPage = () => {
           provider,
         }),
       });
+  
+      if (res.status === 409) {
+        toast({ title: "Time slot already booked with this provider", status: "warning" });
+        setLoading(false);
+        return;
+      }
+  
+      if (!res.ok) {
+        toast({ title: "Submission failed", status: "error" });
+        setLoading(false);
+        return;
+      }
+  
       setFormTime("");
       setEditingId(null);
       setReason("");
