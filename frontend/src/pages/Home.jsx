@@ -13,7 +13,6 @@ import {
   Icon,
   Center,
 } from "@chakra-ui/react";
-import { HashLink, NavHashLink } from "react-router-hash-link";
 
 const Home = () => {
   return (
@@ -60,13 +59,6 @@ const Home = () => {
                 01.
               </Text>
               <Text fontWeight="semibold">Preventive Care</Text>
-              <Box flex="1" />
-              <HashLink smooth to='#care-section' >
-                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                  Learn More
-                </Button>
-              </HashLink>
-
             </VStack>
 
             {/* Restorative Care */}
@@ -82,11 +74,6 @@ const Home = () => {
                 02.
               </Text>
               <Text fontWeight="semibold">Restorative Care</Text>
-              <HashLink smooth to='#care-section' >
-                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                  Learn More
-                </Button>
-              </HashLink>
             </VStack>
 
             {/* Orthodontic Care */}
@@ -102,12 +89,6 @@ const Home = () => {
                 03.
               </Text>
               <Text fontWeight="semibold">Orthodontic Care</Text>
-              <HashLink smooth to='#care-section' >
-                <Button variant="link" color="blue.500" rightIcon={<>→</>}>
-                  Learn More
-                </Button>
-              </HashLink>
-
             </VStack>
           </HStack>
         </VStack>
@@ -162,15 +143,6 @@ const Home = () => {
             about what to expect during your first visit and what to bring with
             you.
           </Text>
-
-          <HStack spacing={4}>
-            <Button colorScheme="blue" variant="solid" px={6}>
-              Read About the Team
-            </Button>
-            <Button colorScheme="blue" variant="outline" px={6}>
-              Learn More
-            </Button>
-          </HStack>
         </VStack>
       </Flex>
 
@@ -190,7 +162,7 @@ const Home = () => {
                 fontWeight="bold"
                 lineHeight="tight"
               >
-                Everything
+                <Text as="span" color="blue.400">Everything</Text>               
                 <br />
                 you need
                 <br />
@@ -323,16 +295,6 @@ const Home = () => {
               and personalized experience for every patient. Your smile is in
               trusted hands.
             </Text>
-
-            <Button
-              colorScheme="blue"
-              variant="solid"
-              px={8}
-              py={6}
-              fontSize="md"
-            >
-              Meet Our Team
-            </Button>
           </VStack>
         </Flex>
       </Box>

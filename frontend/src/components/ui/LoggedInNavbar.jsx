@@ -80,8 +80,8 @@ const LoggedInNavbar = () => {
         <Spacer />
 
         {/* Navigation Links */}
-        <Flex align="center">
-          {/* Home link with active styling */}
+        <HStack align="center" spacing={9} ml={4}>
+        {/* Home link with active styling */}
           <Link
             as={RouterLink}
             to="/home"
@@ -144,15 +144,6 @@ const LoggedInNavbar = () => {
             >
               Payment Info
             </Link>
-            <Link
-              as={RouterLink}
-              to="/financials/placeholder3"
-              display="block"
-              p={2}
-              _hover={{ bg: "gray.100" }}
-            >
-              Placeholder
-            </Link>
           </Dropdown>
 
           {/* Information dropdown */}
@@ -184,26 +175,8 @@ const LoggedInNavbar = () => {
             >
               FAQs
             </Link>
-            <Link
-              as={RouterLink}
-              to="/information/placeholder1"
-              display="block"
-              p={2}
-              _hover={{ bg: "gray.100" }}
-            >
-              Placeholder
-            </Link>
-            <Link
-              as={RouterLink}
-              to="/information/placeholder2"
-              display="block"
-              p={2}
-              _hover={{ bg: "gray.100" }}
-            >
-              Placeholder
-            </Link>
           </Dropdown>
-        </Flex>
+        </HStack>
 
         <Spacer />
 

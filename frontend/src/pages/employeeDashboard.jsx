@@ -140,7 +140,7 @@ const EmployeeDashboard = () => {
           </GridItem>
           <GridItem>
             <Button as={Link} to="/reviews" w="100%" bg="blue.200">
-              Providor Reviews
+              Provider Reviews
             </Button>
           </GridItem>
           <GridItem>

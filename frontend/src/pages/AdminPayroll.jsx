@@ -113,7 +113,7 @@ const AdminPayroll = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="hoursWorked">Hours Worked:</label>
+          <label htmlFor="hoursWorked">Weekly Hours Worked:</label>
           <input
             type="number"
             id="hoursWorked"

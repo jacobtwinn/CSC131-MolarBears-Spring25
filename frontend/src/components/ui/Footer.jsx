@@ -1,76 +1,49 @@
 import { 
-    Box, 
-    Flex, 
-    Text, 
-    VStack, 
-    HStack, 
-    Input, 
-    Button, 
-    Link, 
-    Grid, 
-    GridItem,
-    Icon
-  } from "@chakra-ui/react";
-  import { FaPhone, FaEnvelope } from "react-icons/fa";
-  import React from "react";
-  import { Link as routerLink } from "react-router-dom";
- 
-  
-  
-  
-  const Footer = () => {
-    return (
-      <Box bg="gray.900" color="gray.400" py={12} px={6}>
+  Box, 
+  Flex, 
+  Text, 
+  VStack, 
+  HStack, 
+  Input, 
+  Button,  
+  Grid, 
+  GridItem,
+  Icon
+} from "@chakra-ui/react";
+import { FaPhone, FaEnvelope } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import React, { useState } from "react";
+
+const Footer = () => {
+  // Move useState inside the component
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  return (
+    <Box bg="gray.900" color="gray.400" py={12} px={6}>
+      <Flex justify="center">
         <Grid 
-          templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(4, 1fr)", "repeat(5, 1fr)"]}
-          maxW="1400px" 
-          mx="auto"
+          templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)", "repeat(3, 1fr)", "repeat(3, 1fr)"]}
+          maxW="1400px"
           gap={8}
+          w="100%"
+          px={4}
         >
-          {/* Patient Information */}
+          {/* Information */}
           <GridItem>
             <VStack align="start" spacing={4}>
               <Text fontSize="lg" fontWeight="semibold" color="white">
-                Patient Information
+                Information
               </Text>
               <VStack align="start" spacing={2}>
-                <Link as={routerLink} to="/about" color="gray.400">About Us</Link>
-                <Link color="gray.400">History</Link>
-                <Link color="gray.400">Before / Afters</Link>
-                <Link color="gray.400">Testimonials</Link>
-                <Link color="gray.400">Contact Us</Link>
+                <Link to="/about" style={{ color: "silver" }}>About Us</Link>
+                <Link to="/faq" style={{ color: "silver" }}>FAQs</Link>
+                <Link to="/appt-guidelines" style={{ color: "silver" }}>Guidelines/Forms</Link>
+                <Link to="/payment-info" style={{ color: "silver" }}>Insurance</Link>
               </VStack>
             </VStack>
           </GridItem>
-  
-          {/* Services */}
-          <GridItem>
-            <VStack align="start" spacing={4}>
-              <Text fontSize="lg" fontWeight="semibold" color="white">
-                Services
-              </Text>
-              <VStack align="start" spacing={2}>
-                <Link color="gray.400">Preventative Care</Link>
-                <Link color="gray.400">Braces</Link>
-                <Link color="gray.400">Dental Emergency</Link>
-              </VStack>
-            </VStack>
-          </GridItem>
-  
-          {/* Legal */}
-          <GridItem>
-            <VStack align="start" spacing={4}>
-              <Text fontSize="lg" fontWeight="semibold" color="white">
-                Legal
-              </Text>
-              <VStack align="start" spacing={2}>
-                <Link color="gray.400">Privacy Policy</Link>
-                <Link color="gray.400">Terms & Conditions</Link>
-                <Link color="gray.400">Insurance</Link>
-              </VStack>
-            </VStack>
-          </GridItem>
-  
+
           {/* Contact us */}
           <GridItem>
             <VStack align="start" spacing={4}>
@@ -86,46 +59,59 @@ import {
                 </HStack>
                 <HStack>
                   <Icon as={FaEnvelope} />
-                  <Text color="gray.400">services@molarBears.com</Text>
+                  <Text color="gray.400">services@molarbears.com</Text>
                 </HStack>
               </VStack>
             </VStack>
           </GridItem>
-  
+
           {/* Stay connected */}
           <GridItem>
             <VStack align="start" spacing={4}>
               <Text fontSize="lg" fontWeight="semibold" color="white">
                 Stay connected
               </Text>
-              <Flex>
-                <Input 
-                  placeholder="Your email address" 
-                  bg="gray.800" 
-                  border="none" 
-                  borderRadius="md 0 0 md"
-                />
-                <Button 
-                  bg="white" 
-                  color="gray.800" 
-                  borderRadius="0 md md 0"
-                  _hover={{ bg: "gray.400" }}
-                >
-                  SUBMIT
-                </Button>
-              </Flex>
+              {submitted ? (
+                <Text color="green.300">Thanks! You've been subscribed.</Text>
+              ) : (
+                <Flex>
+                  <Input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email address"
+                    bg="gray.800"
+                    border="none"
+                    borderRadius="md 0 0 md"
+                  />
+                  <Button
+                    bg="white"
+                    color="gray.800"
+                    borderRadius="0 md md 0"
+                    _hover={{ bg: "gray.400" }}
+                    onClick={() => {
+                      if (email.trim()) {
+                        setSubmitted(true);
+                        setEmail("");
+                      }
+                    }}
+                  >
+                    SUBMIT
+                  </Button>
+                </Flex>
+              )}
             </VStack>
           </GridItem>
         </Grid>
-  
-        {/* Copyright */}
-        <Box maxW="1400px" mx="auto" mt={8} pt={6} borderTop="1px" borderColor="gray.700">
-          <Text textAlign="right">
-            Copyright © 2025 Molar Bears.
-          </Text>
-        </Box>
+      </Flex>
+
+      {/* Copyright */}
+      <Box maxW="1400px" mx="auto" mt={8} pt={6} borderTop="1px" borderColor="gray.700">
+        <Text textAlign="right">
+          Copyright © 2025 Molar Bears.
+        </Text>
       </Box>
-    );
-  };
-  
-  export default Footer;
+    </Box>
+  );
+};
+
+export default Footer;

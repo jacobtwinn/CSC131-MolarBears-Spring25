@@ -130,12 +130,12 @@ const AdminDashboard = () => {
         <Grid templateColumns="repeat(2, 1fr)" gap={4}>
           <GridItem>
             <Button as={Link} to="/employment-status" w="100%" bg="blue.100">
-              Employment Status
+              Employee Manager
             </Button>
           </GridItem>
           <GridItem>
             <Button as={Link} to="/visit-history" w="100%" bg="blue.200">
-              Visit History
+              Schedule
             </Button>
           </GridItem>
           <GridItem>
