@@ -32,6 +32,18 @@ router.post("/", authenticateUser, async (req, res) => {
   try {
     const { time, date, reason, provider } = req.body;
 
+    // Check for existing appointment at the same date and time
+    const conflict = await Appointment.findOne({
+      date: new Date(date),
+      time,
+      provider,
+      status: { $ne: "cancelled" }
+    });
+
+    if (conflict) {
+      return res.status(409).json({ error: "This time slot is already booked with this provider." });
+    }
+
     const newAppointment = new Appointment({
       userId: req.user._id,
       name: `${req.user.firstName} ${req.user.lastName}`,
@@ -72,6 +84,20 @@ router.put("/:id", authenticateUser, async (req, res) => {
   try {
     const { id } = req.params;
     const { time, date, reason, provider } = req.body;
+
+    // Check for conflicts (excluding this appointment's own ID)
+    const conflict = await Appointment.findOne({
+      _id: { $ne: id },
+     date: new Date(date),
+     time,
+     provider,
+     status: { $ne: "cancelled" }
+    });
+
+    if (conflict) {
+     return res.status(409).json({ error: "This time slot is already booked with this provider." });
+    }
+
 
     const appointment = await Appointment.findOne({ _id: id, userId: req.user._id });
     if (!appointment) return res.status(404).json({ error: "Appointment not found" });
@@ -137,5 +163,56 @@ router.get("/all", authenticateUser, async (req, res) => {
     res.status(500).json({ error: "Failed to fetch all appointments" });
   }
 });
+
+// GET next upcoming appointments for the dashboard
+router.get("/upcoming", authenticateUser, async (req, res) => {
+  try {
+    const now = new Date();
+    const upcoming = await Appointment.find({
+      userId: req.user._id,
+      date: { $gte: now },
+    }).sort({ date: 1, time: 1 }).limit(3); // limit to 3 results
+
+    res.json(upcoming);
+  } catch (err) {
+    console.error("Failed to fetch upcoming appointments:", err);
+    res.status(500).json({ error: "Could not fetch upcoming appointments" });
+  }
+});
+
+// GET upcoming appointments for providers
+router.get("/provider/upcoming", authenticateUser, async (req, res) => {
+  try {
+    const now = new Date();
+
+    const appointments = await Appointment.find({
+      provider: `${req.user.firstName} ${req.user.lastName}`, // match full name of logged-in provider
+      date: { $gte: now },
+    }).sort({ date: 1, time: 1 }).limit(5); // adjust limit as needed
+
+    res.json(appointments);
+  } catch (err) {
+    console.error("Error fetching provider appointments:", err);
+    res.status(500).json({ error: "Failed to fetch appointments" });
+  }
+});
+
+// GET all upcoming appointments (for admin use)
+router.get("/admin/upcoming", authenticateUser, async (req, res) => {
+  try {
+    const now = new Date();
+
+    // You might want to check req.user.role === 'admin' here for extra safety
+    const appointments = await Appointment.find({
+      date: { $gte: now }
+    }).sort({ date: 1, time: 1 }).limit(10); // Adjust limit if needed
+
+    res.json(appointments);
+  } catch (err) {
+    console.error("Error fetching admin appointments:", err);
+    res.status(500).json({ error: "Failed to fetch upcoming appointments" });
+  }
+});
+
 
 export default router;

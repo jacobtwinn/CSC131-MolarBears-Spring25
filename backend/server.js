@@ -1,7 +1,10 @@
 // server.js
+
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import resetRoutes from "./routes/resetPassword.js";
@@ -13,18 +16,15 @@ import EmployeeRoutes from './routes/EmployeeRoutes.js';
 import financialHistoryRoute from './routes/financialHistoryRoute.js';
 import uploadProfilePictureRouter from './routes/uploadProfilePicture.js';
 import notificationRoute from './routes/notifications.js';
-import path from "path";
-import { fileURLToPath } from "url";
 import payrollRoutes from './routes/payrollRoutes.js';
 import { paymentRoutes } from "./routes/paymentRoutes.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config({ path: "../.env" });
 
 const app = express();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Middleware
 app.use(cors());

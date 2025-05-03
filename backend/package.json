@@ -12,6 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@stripe/stripe-js": "^7.3.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
     "concurrently": "^9.1.2",
