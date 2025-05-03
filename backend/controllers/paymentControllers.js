@@ -26,28 +26,31 @@ export const createPaymentIntent = async (req, res) =>
             res.status(500).json({ error: error.message });
         }
     };
+
     export const createCheckoutSession = async (req, res) => {
-  try {
-    const { lineItems } = req.body;
-
-    const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
-      line_items: lineItems.map(item => ({
-        price_data: {
-          currency: 'usd',
-          product_data: { name: item.name },
-          unit_amount: item.amount,
-        },
-        quantity: 1,
-      })),
-      mode: 'payment',
-      success_url: 'http://localhost:5174/payment-success',
-      cancel_url: 'http://localhost:5174/financial-history',
-    });
-
-    res.json({ url: session.url });
-  } catch (error) {
-    console.error('Error creating checkout session:', error);
-    res.status(500).json({ error: error.message });
-  }
-};
+        try {
+          const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+              {
+                price_data: {
+                  currency: 'usd',
+                  product_data: {
+                    name: 'Dental Service Payment',
+                  },
+                  unit_amount: 33998, // $5.00 (Stripe expects amount in cents)
+                },
+                quantity: 1,
+              },
+            ],
+            mode: 'payment',
+            success_url: 'http://localhost:5174/payment-success',
+            cancel_url: 'http://localhost:5174/financial-history',
+          });
+      
+          res.json({ url: session.url });
+        } catch (error) {
+          console.error("Stripe error:", error);
+          res.status(500).json({ error: "Failed to create checkout session." });
+        }
+      };

@@ -48,7 +48,7 @@ app.use("/api/reset", resetRoutes);
 app.use("/api/profile", uploadProfilePictureRouter); 
 app.use("/api/employees", payrollRoutes);
 app.use("/api/notifications", notificationRoute);
-app.use("/api", paymentRoutes);
+app.use("/api/payments", paymentRoutes);
 
 
 // Homepage
