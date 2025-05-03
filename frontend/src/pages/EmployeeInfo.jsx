@@ -9,7 +9,7 @@ const AccountDetails = () => {
     personalInfo: {
       name: 'Elias Employee',
       email: 'employee1.gmail.com',
-      phone: '916-787-9582',
+      phone: '(916)-787-9582',
       userID: '545498419519',
       DOB: '6/15/1990',
       gender: 'Male',

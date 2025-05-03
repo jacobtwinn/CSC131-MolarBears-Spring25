@@ -9,7 +9,7 @@ const AccountDetails = () => {
     personalInfo: {
       name: 'Alice Admin',
       email: 'admin1@molarbears.com',
-      phone: '916-117-4512',
+      phone: '(916)-117-4512',
       userID: '68127',
       DOB: '6/15/1990',
       gender: 'Male',

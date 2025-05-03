@@ -10,8 +10,8 @@ const AccountDetails = () => {
   const [userDetails, setUserDetails] = useState({
     personalInfo: {
       name: 'John Doe',
-      email: 'johndoe@example.com',
-      phone: '(555) 123-4567',
+      email: 'johndoe@gmail.com',
+      phone: '(555)-123-4567',
       insurance: 'Allstate',
       userID: '1234567890',
       DOB: '01/01/1980',
